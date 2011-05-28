@@ -8,7 +8,6 @@ Music Beta Toaster is a simple Google Chrome extension to notify you of song cha
 ### FAQ
 
 **Why doesn't it work after I install?**
-
 You need to refresh the Google Music Beta page in order for the script to start watching for song changes.
 
 **Why doesn't it show album art for my song? The CD has it!**
@@ -23,5 +22,4 @@ If you like what we are doing, fee free to buy us a beer or help us out so we ca
 ### History
 
 **1.0.1** Fixed the order of artist/song title, updated icons with HQ Google Music icon
-
 **1.0.0** Initial version, basic toasting of song information on change
