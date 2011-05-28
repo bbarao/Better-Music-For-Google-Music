@@ -7,9 +7,9 @@ chrome.extension.onRequest.addListener(function(request, sender, callback) {
       var SongAlbumArt = document.getElementById("playingAlbumArt").attributes;
       state = SongAlbumArt.getNamedItem("src").nodeValue;
       state += "|";
-      state += SongArtist.innerHTML.replace(/<.*?>/g, '');
-      state += "|";
       state += SongTitle.innerHTML.replace(/<.*?>/g, '');
+      state += "|";
+      state += SongArtist.innerHTML.replace(/<.*?>/g, '');
     }
     callback(state);
   });

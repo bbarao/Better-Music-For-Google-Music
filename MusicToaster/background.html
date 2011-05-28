@@ -25,8 +25,6 @@
     FindMusicBetaTab(function(tab_id) {
         if (tab_id)
           chrome.tabs.sendRequest(tab_id, "getPlayState", ToastyPopupPrepare);
-        //else
-          //chrome.browserAction.setIcon({path: "logo-19x19.png"});
       });
   }
 
