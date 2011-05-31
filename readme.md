@@ -1,9 +1,9 @@
-# Music Beta Toaster
+# Better Music Beta
 [Level 2 Studios](http://level2studios.com/ "Level 2 Studios")
 
 ### Overview
 
-Music Beta Toaster is a simple Google Chrome extension to notify you of song changes in the Music Beta web application. It operates much like an iTunes growl notification, showing album art, song title and artist.
+Better Music Beta is a simple Google Chrome extension to notify you of song changes in the Music Beta web application. It operates much like an iTunes growl notification, showing album art, song title and artist.
 
 * * *
 

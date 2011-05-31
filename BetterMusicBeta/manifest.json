@@ -1,0 +1,23 @@
+{
+   "name": "Better Music Beta",
+   "description": "Provides toast notifications gor Google Music Beta",
+   "version": "1.0.1",
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "icons": {
+      "128": "logo-128x128.png",
+      "16": "logo-16x16.png",
+      "48": "logo-48x48.png"
+   },
+   "permissions": [ 
+      "tabs", 
+      "notifications", 
+      "http://music.google.com/*" 
+   ],
+   "background_page": "background.html",
+   "content_scripts": [ 
+      {
+         "js": [ "js/inject.js" ],
+         "matches": [ "http://music.google.com/*" ]
+      }
+   ]
+}
