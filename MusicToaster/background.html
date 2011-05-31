@@ -4,6 +4,8 @@
   // Find a the first tab in the current window that is showing Music Beta
   // and call callback with the id of that tab.
   var CurrentSongInfo = '';
+  var lastfm_api_key = '41b5091ff76ed125105e038191937bd9';
+  var lastfm_secret_key = '4a4e7fc6803dc19275deaa672c70627f';
 
   function FindMusicBetaTab(callback) {
     chrome.windows.getAll({populate: true}, function(windows) {
