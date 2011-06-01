@@ -123,6 +123,9 @@ GoogleMusicParser.prototype._get_song_album = function() {
 
 var port = chrome.extension.connect({name: "musicbeta"});
 
+//send information immediately - populate plugin information
+SendMessage(port);
+
 //Auto Send Message every 10 seconds
 window.setInterval(function() {
     SendMessage(port);
