@@ -1,3 +1,7 @@
 MusicToaster.pem
 MusicToaster.crx
 MusicToaster.zip
+.project
+.settings
+.DS_Store
+*~

@@ -1,23 +1,37 @@
 {
    "name": "Better Music Beta",
-   "description": "Provides toast notifications gor Google Music Beta",
-   "version": "1.x.x",
+   "description": "Provides toast notifications for Google Music Beta",
+   "version": "1.0.2",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "icons": {
-      "128": "logo-128x128.png",
-      "16": "logo-16x16.png",
-      "48": "logo-48x48.png"
+      "16": "img/logo-16x16.png",
+      "48": "img/logo-48x48.png",
+      "128": "img/logo-128x128.png"
    },
    "permissions": [ 
-      "tabs", 
       "notifications", 
-      "http://music.google.com/*" 
+      "http://music.google.com/",
+      "https://music.google.com/"
    ],
+   "browser_action": {
+      "default_icon": "img/main-nogmbtab.png",
+      "default_title": "Better Music Beta"
+      //"default_popup": "popup.html"
+   },
    "background_page": "background.html",
    "content_scripts": [ 
       {
-         "js": [ "js/inject.js" ],
-         "matches": [ "http://music.google.com/*" ]
+         "js": ["js/inject.js"],
+         "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"]
+      },
+      {
+         "js": ["js/contentscript.js"],
+         "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"]
+      },
+      {
+         "js": ["js/jquery-1.6.1.min.js"],
+         "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"],
+         "run_at": "document_start"
       }
    ]
 }
