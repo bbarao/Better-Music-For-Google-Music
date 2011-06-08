@@ -29,7 +29,7 @@ If you like what we are doing, fee free to buy us a beer or help us out so we ca
 
 ### History
 
-**1.0.2** Name changed to Better Google Music, fixed communication method between GMB page and the actual controller/background page, added icon
+**1.0.2** Name changed to Better Google Music, fixed communication method between GMB page and the actual controller/background page, added non-working icon on extension bar for display of play state and to be used in further development
 
 **1.0.1** Fixed the order of artist/song title, updated icons with HQ Google Music icon
 

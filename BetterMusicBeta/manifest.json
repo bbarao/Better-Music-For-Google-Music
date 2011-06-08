@@ -1,7 +1,7 @@
 {
    "name": "Better Music Beta",
-   "description": "Provides toast notifications for Google Music Beta",
-   "version": "1.0.2",
+   "description": "Provides modifications Google Music Beta to improve the experience. Some improvements include toast notifications on song change, icon to control the music from any Chrome window, and more!",
+   "version": "1.0.3",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "icons": {
       "16": "img/logo-16x16.png",
@@ -15,8 +15,8 @@
    ],
    "browser_action": {
       "default_icon": "img/main-nogmbtab.png",
-      "default_title": "Better Music Beta"
-      //"default_popup": "popup.html"
+      "default_title": "Better Music Beta",
+      "default_popup": "popup.html"
    },
    "background_page": "background.html",
    "content_scripts": [ 

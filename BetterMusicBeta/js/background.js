@@ -1,6 +1,6 @@
 /**
  * background.js
- * Controls the toast notifications and scrobbling for Better Music Beta
+ * Controls the data transfer between page, bacground page, and last.fm
  * @author Jared Sartin <jared@level2studios.com>
  * @author Derek Slenk <derek@level2studios.com>
  * Licensed under the MIT license
@@ -54,9 +54,9 @@ function port_on_connect(port) {
     port.onDisconnect.addListener(port_on_disconnect);
 }
  
- /**
-  * New message arrives to the port
-  */
+/**
+ * New message arrives to the port
+ **/
 function port_on_message(message) {
     // Current player state
     var _p = message;
