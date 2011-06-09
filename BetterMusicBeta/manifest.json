@@ -1,6 +1,6 @@
 {
    "name": "Better Music Beta",
-   "description": "Provides modifications Google Music Beta to improve the experience. Some improvements include scrobbling, toast notifications on song change, and an icon to control the music from any Chrome window!",
+   "description": "Mods Google Music Beta to improve the experience: scrobbling, toast notifications, more soon!",
    "version": "1.1.0",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "icons": {
@@ -10,7 +10,6 @@
    },
    "permissions": [ 
       "notifications",
-      "tabs", 
       "http://music.google.com/",
       "https://music.google.com/",
       "http://ws.audioscrobbler.com/"

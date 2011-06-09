@@ -224,8 +224,3 @@ function ToastyPopup(icon, title, artist){
 function TrackUse(eventName){
   _gaq.push(['_trackEvent', 'MusicToast', eventName]);
 }
-
-
-
-
-///////
