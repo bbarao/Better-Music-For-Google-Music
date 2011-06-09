@@ -28,6 +28,9 @@ lastfm_api.session.name = localStorage["session_name"] || null;
 // This enables scrobbling by default
 SETTINGS.scrobble = !(localStorage["scrobble"] == "false");
 
+// This enables toasting by default
+SETTINGS.toast = !(localStorage["toast"] == "false");
+
 if(!SETTINGS.scrobble) {
     chrome.browserAction.setIcon({ 'path': SETTINGS.scrobbling_stopped_icon });
 }
@@ -109,7 +112,7 @@ function port_on_message(message) {
                 scrobbled = false;
             }
 
-            if (need_to_toast){
+            if (need_to_toast == true && SETTINGS.toast == true){
               ToastyPopup(_p.song.cover, _p.song.title, _p.song.artist);
               need_to_toast = false;
             }
@@ -118,6 +121,8 @@ function port_on_message(message) {
             player = _p;
         }
         else {
+            // Save player state
+            player = _p;
             // The player is paused
             chrome.browserAction.setIcon({'path': 'img/main-pause.png' });
         }
@@ -171,6 +176,11 @@ function toggle_scrobble() {
     localStorage["scrobble"] = SETTINGS.scrobble;
 }
 
+function toggle_toast() {
+    SETTINGS.toast = !SETTINGS.toast;
+    localStorage["toast"] = SETTINGS.toast;
+}
+
 /**
  * Last.fm session request
  */
@@ -192,7 +202,7 @@ function ToastyPopup(icon, title, artist){
   TrackUse('Toast');
   // Create a simple text notification:
   if(icon == "http:default_album_med.png"){
-    icon = "img/logo-48x48.png";
+    icon = "img/defaultcover.png";
   }
   var notification = webkitNotifications.createNotification(
     icon,
@@ -214,3 +224,8 @@ function ToastyPopup(icon, title, artist){
 function TrackUse(eventName){
   _gaq.push(['_trackEvent', 'MusicToast', eventName]);
 }
+
+
+
+
+///////

@@ -13,8 +13,11 @@ var bp = chrome.extension.getBackgroundPage();
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_scrobble_link();
+    render_options_link();
+    render_toast_link();
     render_song();
     render_auth_link();
+    render_playing_controls();
 });
 
 /* Render functions */
@@ -55,6 +58,21 @@ function render_song() {
 }
 
 /**
+ * Renders the link to toggle the options panel
+ */
+function render_options_link() {
+    $("#optionsButton").html('<a></a>');
+    $("#optionsButton a")
+    .attr({
+        href: "#" 
+    })
+    .click(function(){
+        $("#optionsPanel").slideToggle('fast');
+    })
+    .text("Options");
+}
+
+/**
  * Renders the link to turn on/off scrobbling
  */
 function render_scrobble_link() {
@@ -68,12 +86,25 @@ function render_scrobble_link() {
 }
 
 /**
+ * Renders the link to turn on/off toasting
+ */
+function render_toast_link() {
+    $("#toasting").html('<a></a>');
+    $("#toasting a")
+    .attr({
+        href: "#" 
+    })
+    .click(on_toggle_toast)
+    .text(bp.SETTINGS.toast ? "Stop toasting" : "Resume toasting");
+}
+
+/**
  * Renders authentication/profile link
  */
 function render_auth_link() {
     if(bp.lastfm_api.session.name && bp.lastfm_api.session.key)
     {
-        $("#lastfm-profile").html("Logged in as " + "<a></a><a></a>");
+        $("#lastfm-profile").html("Last.FM User: " + "<a></a><a></a>");
         $("#lastfm-profile a:first")
         .attr({
             href: "http://last.fm/user/" + bp.lastfm_api.session.name,
@@ -97,6 +128,27 @@ function render_auth_link() {
         })
         .click(on_auth)
         .text("Connect to Last.fm");
+    }
+}
+
+/**
+ * Renders all the play controls
+ */
+
+function render_playing_controls(){
+    $('#playing_controls').html('<div id="repeat_mode_button" title="Repeat songs"></div><div id="shuffle_mode_button" title="Shuffle songs"></div><div id="rew" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Previous song" role="button" style="-webkit-user-select: none; "></div><div id="playPause" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Play" role="button" style="-webkit-user-select: none; "></div><div id="ff" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Next song" role="button" style="-webkit-user-select: none; "></div>');
+    $('#repeat_mode_button').attr({class: bp.player.repeat_mode || 'NO_REPEAT'});
+    $('#shuffle_mode_button').attr({class: bp.player.shuffle});
+    if(bp.player.song){
+        $('#rew').removeClass('goog-flat-button-disabled');
+        $('#ff').removeClass('goog-flat-button-disabled');
+    }
+    if(bp.player.song){
+        $('#playPause').removeClass('goog-flat-button-disabled');
+        if(bp.player.is_playing)
+            $('#playPause').addClass('goog-flat-button-checked');
+        else
+            $('#playPause').removeClass('goog-flat-button-checked');
     }
 }
 
@@ -136,6 +188,14 @@ function on_toggle_scrobble() {
 }
 
 /**
+ * Turn on/off scrobbling link was clicked
+ */
+function on_toggle_toast() {
+    bp.toggle_toast();
+    render_toast_link();
+}
+
+/**
  * Authentication link was clicked
  */
 function on_auth() {
@@ -166,9 +226,6 @@ function on_love() {
                     bp.clear_session();
                     render_auth_link();
                 }
-                
-                chrome.browserAction.setIcon({
-                     'path': SETTINGS.error_icon });
             }
         });
 
@@ -190,60 +247,8 @@ function on_unlove() {
                     bp.clear_session();
                     render_auth_link();
                 }
-                
-                chrome.browserAction.setIcon({
-                     'path': SETTINGS.error_icon });
             }
         });
 
     $("#love-button").html('<img src="img/ajax-loader.gif">');
-}
-
-
-
-
-
-chrome.extension.onConnect.addListener(port_on_connect);
-
-/**
- * Content script has connected to the extension
- **/
-function port_on_connect(port) {
-    console.assert(port.name == "musicbeta");
-    // Connect another port event handlers
-    port.onMessage.addListener(port_on_message);
-}
-
-/**
- * Sends command to messaging for the inject script to contolr page
- **/
-function sendCommand(gmbCommand){
-	
-}
-
-function playPause(){
-	sendCommand('playPause');
-	// change button
-}
-
-
-
-/**
- * function to load data when it is passed from the page
- **/
-function port_on_message(message) {
-    // Current player state
-    var _p = message;
-
-    if(_p.has_song) {
-        if(_p.is_playing) {
-        	// The player is paused
-        }
-        else {
-            // The player is paused
-        }
-    }
-    else {
-    	// No song
-    }
 }

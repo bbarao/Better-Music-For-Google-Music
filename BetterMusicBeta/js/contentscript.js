@@ -15,6 +15,8 @@
 function Player(parser) { 
     this.has_song = parser._get_has_song();
     this.is_playing = parser._get_is_playing();
+    this.shuffle = parser._get_shuffle();
+    this.repeat_mode = parser._get_repeat_mode();
     this.song = {
         position: parser._get_song_position(),
         time: parser._get_song_time(),
@@ -50,6 +52,24 @@ GoogleMusicParser.prototype._get_has_song = function() {
  */
 GoogleMusicParser.prototype._get_is_playing = function() {
     return ($("#playPause").attr("title") == "Pause");
+};
+
+/**
+ * Checks whether random play is on or not
+ *
+ * @return true if shuffle, false if not shuffle
+ */
+GoogleMusicParser.prototype._get_shuffle = function() {
+    return $("#shuffle_mode_button").attr("class");
+};
+
+/**
+ * Checks whether song is playing or paused
+ *
+ * @return true if song is playing, false if song is paused
+ */
+GoogleMusicParser.prototype._get_repeat_mode = function() {
+    return $("#repeat_mode_button").attr("class");
 };
 
 /**
@@ -124,25 +144,31 @@ GoogleMusicParser.prototype._get_song_album = function() {
 var port = chrome.extension.connect({name: "musicbeta"});
 
 //send information immediately - populate plugin information
-SendMessage(port);
+SendMessage();
 
 //Auto Send Message every 10 seconds
 window.setInterval(function() {
-    SendMessage(port);
+    SendMessage();
 }, 10000);
 
 //Forced send on update (new song starts, etc.)
 document.getElementById("playerSongInfo").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage(port)", 100);
+    setTimeout("SendMessage()", 100);
 });
 
 document.getElementById("playPause").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage(port)", 100);
+    setTimeout("SendMessage()", 100);
 });
 
-//document.getElementById("playPause").attributes.getNamedItem("title").nodeValue;
+document.getElementById("repeat_mode_button").addEventListener("DOMSubtreeModified", function() {
+    setTimeout("SendMessage()", 100);
+});
+
+document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModified", function() {
+    setTimeout("SendMessage()", 100);
+});
 
 // Function to send the message
-function SendMessage(port){
+function SendMessage(){
     port.postMessage(new Player(new GoogleMusicParser()));
 }
