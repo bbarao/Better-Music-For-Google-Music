@@ -3,9 +3,32 @@
 <link rel="stylesheet" type="text/css" href="css/popup.css" />
 <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript" src="js/lastfm.js"></script>
 </head>
 <body>
-	<div id="gmbContainer"></div>
-	<div id="lastfmContainer">Last.FM connections coming soon!</div>
+	<div id="lastfmContainer">
+		<div id="main" class="cf">
+	        <div id="cover-box">
+	            <img id="cover">
+	        </div>
+	        <div id="song">
+	            <div id="now-playing">
+	                <p id="track"></p>
+	                <p id="artist"></p>
+	            </div>
+	            <div id="lastfm-buttons">
+	                <span id="love-button"></span>
+	            </div>
+	        </div>
+	    </div>
+	    <div id="playControls" class="cf">
+
+	    </div>
+	    <div id="bottom" class="cf">
+	        <div id="scrobbling"></div>
+	        <div id="lastfm-profile"></div>
+	    </div>
+	</div>
 </body>
 </html>

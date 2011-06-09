@@ -1,7 +1,146 @@
+/**
+ * popup.css
+ * Style sheet for popup page
+ * @author Jared Sartin <jared@level2studios.com>
+ * Licensed under the MIT license 
+ */
+
 body {
 	min-width:300px;
-	color:#000;
-	font-size:8px;
-	font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif;
+	color:#4C4C4C;
+	background:url('../img/background.gif');
+    margin: 0;
+	font-size:10px;
+	font-family:'Proxima Nova',arial,sans-serif;
 	-webkit-font-smoothing: antialiased;
+	-webkit-border-radius:3px;
+}
+
+p {
+    line-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #4C4C4C;
+}
+
+a:hover {
+    color: black;
+}
+
+#main{
+	margin:5px;
+	padding:5px;
+	background:#FFFFFF;
+	-webkit-border-radius:3px;
+	border:1px solid #CECECE;
+}
+
+#cover-box {
+    float: left;
+    border:1px solid #A8A8A8;
+}
+
+#cover {
+    border: none;
+    border:1px solid #FFFFFF;
+    background:#FFFFFF;
+}
+
+#song.nosong {
+    color: grey;
+}
+
+#song.nosong a {
+    font-size: 12px;
+}
+
+#song {
+    margin-left: 75px;
+}
+
+#artist {
+	margin-top: 6px;
+    font-size: 12px;
+}
+
+#track {
+    font-size: 16px;
+}
+
+#lastfm-buttons {
+    margin-top: 6px;
+}
+
+#playControls{
+	padding:5px;
+	background:#4C4C4C;
+}
+
+#bottom {
+    margin-top: 0px;
+    font-size: 11px;
+    background:#ED8335 url('../img/background_orange.gif');
+    padding:2px;
+    border:4px solid #ED8335;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+
+#bottom a{
+	color:#4C4C4C;
+}
+
+#bottom a:hover{
+	color:#FFFFFF;
+}
+        
+#scrobbling {
+    float: left;
+}
+
+#lastfm-profile {
+    float: right;
+}
+
+a.logout {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: url('../img/logout.png') 0 0 no-repeat;
+    margin-left:4px;
+    margin-top:-2px;
+    border:1px solid #ED8335;
+}
+
+a:hover.logout {
+    background-position: 0 -10px;
+}
+
+a.loved, a.notloved {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../img/love.png');
+    background-repeat: no-repeat;
+}
+
+a.loved {
+    background-position: 0 0;
+}
+
+a.notloved {
+    background-position: 0 -16px;
+}
+
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
 }
