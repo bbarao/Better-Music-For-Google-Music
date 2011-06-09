@@ -151,21 +151,21 @@ window.setInterval(function() {
     SendMessage();
 }, 10000);
 
-//Forced send on update (new song starts, etc.)
+//Forced send on update (new song starts, mode changes, etc.)
 document.getElementById("playerSongInfo").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 100);
+    setTimeout("SendMessage()", 75);
 });
 
 document.getElementById("playPause").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 100);
+    setTimeout("SendMessage()", 75);
 });
 
 document.getElementById("repeat_mode_button").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 100);
+    setTimeout("SendMessage()", 75);
 });
 
 document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 100);
+    setTimeout("SendMessage()", 75);
 });
 
 // Function to send the message

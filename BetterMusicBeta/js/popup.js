@@ -12,13 +12,17 @@ var bp = chrome.extension.getBackgroundPage();
 
 /* Render popup when DOM is ready */
 $(document).ready(function() {
+    render_popup();
+});
+
+function render_popup(){
     render_scrobble_link();
     render_options_link();
     render_toast_link();
     render_song();
     render_auth_link();
     render_playing_controls();
-});
+}
 
 /* Render functions */
 
@@ -148,8 +152,14 @@ function render_playing_controls(){
         if(bp.player.is_playing)
             $('#playPause').addClass('goog-flat-button-checked');
         else
-            $('#playPause').removeClass('goog-flat-button-checked');
+            $('#playPause').removeClass('goog-flat-button-checked');            
     }
+
+    $('#playPause').click(playPause);
+    $('#rew').click(prevSong);
+    $('#ff').click(nextSong);
+    $('#repeat_mode_button').click(toggleRepeat);
+    $('#shuffle_mode_button').click(toggleShuffle);
 }
 
 /**
@@ -251,4 +261,75 @@ function on_unlove() {
         });
 
     $("#love-button").html('<img src="img/ajax-loader.gif">');
+}
+
+
+/**
+ * Send commands to control playback
+ */
+
+function playPause(){
+    sendCommand("playPause");
+    setTimeout("render_popup()", 150);
+}
+
+function prevSong(){
+    sendCommand("prevSong");
+    setTimeout("render_popup()", 150);
+}
+
+function nextSong(){
+    sendCommand("nextSong");
+    setTimeout("render_popup()", 150);
+}
+
+function toggleRepeat(){
+    sendCommand("toggleRepeat");
+    setTimeout("render_playing_controls()", 100);
+    setTimeout("render_playing_controls()", 500);
+}
+
+function toggleShuffle(){
+    sendCommand("toggleShuffle");
+    setTimeout("render_playing_controls()", 100);
+    setTimeout("render_playing_controls()", 500);
+}
+
+function FindMusicBetaTab(callback) {
+chrome.windows.getAll({populate: true}, function(windows) {
+    for (var window = 0; window < windows.length; window++) {
+      for (var i = 0; i < windows[window].tabs.length; i++) {
+        if (windows[window].tabs[i].url.
+            indexOf('http://music.google.com/music/listen') == 0 ||
+            windows[window].tabs[i].url.
+            indexOf('https://music.google.com/music/listen') == 0) {
+          callback(windows[window].tabs[i].id)
+          return;
+        }
+      }
+    }
+    callback(null);
+  });  
+}
+
+// Send the given command to a tab showing Music Beta,
+// or open one if non exists.
+function sendCommand(command) {
+    FindMusicBetaTab(function(tab_id) {
+        if (tab_id) {
+          if (command == "foreground") {
+            chrome.tabs.update(tab_id, {selected: true});
+          } else {
+            chrome.tabs.executeScript(tab_id,
+                {
+                  code: "location.assign('javascript:SJBpost(\"" + command +
+                        "\");void 0');",
+                  allFrames: true
+                });
+          }
+        } else {
+          chrome.tabs.create({url: 'http://music.google.com/music/listen',
+                              selected: true});
+        }
+    });
 }

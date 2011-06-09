@@ -1,7 +1,7 @@
 {
    "name": "Better Music Beta",
-   "description": "Mods Google Music Beta to improve the experience: scrobbling, toast notifications, more soon!",
-   "version": "1.1.0",
+   "description": "Mods Google Music Beta to improve the experience: scrobbling, toast notifications, play controls, and more!",
+   "version": "1.2.0",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "icons": {
       "16": "img/logo-16x16.png",
@@ -10,6 +10,7 @@
    },
    "permissions": [ 
       "notifications",
+      "tabs",
       "http://music.google.com/",
       "https://music.google.com/",
       "http://ws.audioscrobbler.com/"

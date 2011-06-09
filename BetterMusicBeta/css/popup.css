@@ -74,8 +74,9 @@ a:hover {
 }
 
 #playing_controls{
-	padding:5px;
+	padding:2px;
 	background:#4C4C4C;
+    border-top:2px solid #ED8335;
 }
 
 #bottom {
@@ -100,11 +101,12 @@ a:hover {
 	color:#4C4C4C;
 	background:#FFFFFF;
 	-webkit-border-radius:3px;
-	border:1px solid #CECECE;
+	border:1px solid #ED8335;
 	clear:both;
 	padding:3px;
 	margin:20px 2px 2px;
 	display:none;
+    -webkit-background-clip: padding-box;
 }
 
 #optionsPanel h2{
