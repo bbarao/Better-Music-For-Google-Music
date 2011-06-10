@@ -195,23 +195,15 @@ function get_lastfm_session(token) {
  /**
   * Sends the information to the desktop toast
   */
-function ToastyPopup(icon, title, artist){
+function ToastyPopup(){
   TrackUse('Toast');
-  // Create a simple text notification:
-  if(icon == "http:default_album_med.png"){
-    icon = "img/defaultcover.png";
-  }
-  var notification = webkitNotifications.createNotification(
-    icon,
-    title,
-    artist
-  );
   // Then show the notification
+  var notification = webkitNotifications.createHTMLNotification('notification.html');
   notification.show();
   // Then auto close!
   setTimeout(function(){
       notification.cancel();
-      }, '6000');
+      }, '8000');
 
 }
 

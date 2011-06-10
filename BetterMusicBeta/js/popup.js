@@ -141,15 +141,12 @@ function render_auth_link() {
  */
 
 function render_playing_controls(){
-    $('#playing_controls').html('<div id="repeat_mode_button" title="Repeat songs"></div><div id="shuffle_mode_button" title="Shuffle songs"></div><div id="rew" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Previous song" role="button" style="-webkit-user-select: none; "></div><div id="playPause" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Play" role="button" style="-webkit-user-select: none; "></div><div id="ff" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Next song" role="button" style="-webkit-user-select: none; "></div>');
+    $('#playing_controls').html('<div id="repeat_mode_button" title="Repeat songs"></div><div id="shuffle_mode_button" title="Shuffle songs"></div><div id="rew" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Previous song" role="button" style="-webkit-user-select: none; "></div><div id="playPause" class="goog-flat-button goog-inline-block" title="Play" role="button" style="-webkit-user-select: none; "></div><div id="ff" class="goog-flat-button goog-flat-button-disabled goog-inline-block" title="Next song" role="button" style="-webkit-user-select: none; "></div>');
     $('#repeat_mode_button').attr({class: bp.player.repeat_mode || 'NO_REPEAT'});
     $('#shuffle_mode_button').attr({class: bp.player.shuffle});
     if(bp.player.song){
         $('#rew').removeClass('goog-flat-button-disabled');
         $('#ff').removeClass('goog-flat-button-disabled');
-    }
-    if(bp.player.song){
-        $('#playPause').removeClass('goog-flat-button-disabled');
         if(bp.player.is_playing)
             $('#playPause').addClass('goog-flat-button-checked');
         else
@@ -288,17 +285,17 @@ function on_unlove() {
 
 function playPause(){
     sendCommand("playPause");
-    setTimeout("render_popup()", 150);
+    setTimeout("render_popup()", 200);
 }
 
 function prevSong(){
     sendCommand("prevSong");
-    setTimeout("render_popup()", 150);
+    setTimeout("render_popup()", 200);
 }
 
 function nextSong(){
     sendCommand("nextSong");
-    setTimeout("render_popup()", 150);
+    setTimeout("render_popup()", 200);
 }
 
 function toggleRepeat(){
