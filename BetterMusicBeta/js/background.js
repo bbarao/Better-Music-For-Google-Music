@@ -62,56 +62,53 @@ function port_on_message(message) {
       need_to_toast = true;
     }
     
-    if(!SETTINGS.scrobble) {
-        player = _p;
-        return;
-    }
-    
     if(_p.has_song) {
         if(_p.is_playing) {
             chrome.browserAction.setIcon({'path': 'img/main-play.png' });
-            
-            // Last.fm recommends to scrobble a song at least at 50%
-            var time_to_scrobble = _p.song.time * 0.7 - _p.song.position;
-            
-            // Check for valid timings and for that the now playing status was reported at least once
-            // This intended to fix an issue with invalid timings that Amazon accidentally reports on
-            // song start
-            if(time_to_scrobble <= 0 && _p.song.position > 0 && _p.song.time > 0) {
-                if(now_playing_sent && !scrobbled) {
-                    // Scrobble this song
-                    lastfm_api.scrobble(_p.song.title,
-                        /* Song start time */
-                        Math.round(new Date().getTime() / 1000) - _p.song.position, 
+            //do scrobble if enabled
+            if(SETTINGS.scrobble) {
+                // Last.fm recommends to scrobble a song at least at 50%
+                var time_to_scrobble = _p.song.time * 0.7 - _p.song.position;
+                
+                // Check for valid timings and for that the now playing status was reported at least once
+                // This intended to fix an issue with invalid timings that Amazon accidentally reports on
+                // song start
+                if(time_to_scrobble <= 0 && _p.song.position > 0 && _p.song.time > 0) {
+                    if(now_playing_sent && !scrobbled) {
+                        // Scrobble this song
+                        lastfm_api.scrobble(_p.song.title,
+                            /* Song start time */
+                            Math.round(new Date().getTime() / 1000) - _p.song.position, 
+                            _p.song.artist,
+                            _p.song.album,
+                            function(response) {
+                                if(!response.error) {
+                                  // Song was scrobled, waiting for the next song
+                                    scrobbled = true;
+                                    now_playing_sent = false;
+                                }
+                                else {
+                                    if(response.error == 9) {
+                                        // Session expired
+                                        clear_session();
+                                    }
+                                }
+                            });
+                    }
+                }
+                else {
+                    // Set now playing status
+                    lastfm_api.now_playing(_p.song.title,
                         _p.song.artist,
                         _p.song.album,
                         function(response) {
-                            if(!response.error) {
-                              // Song was scrobled, waiting for the next song
-                                scrobbled = true;
-                                now_playing_sent = false;
-                            }
-                            else {
-                                if(response.error == 9) {
-                                    // Session expired
-                                    clear_session();
-                                }
-                            }
                         });
-                }
+                    
+                    now_playing_sent = true;
+                    scrobbled = false;
+                } //end enabled scrobble section
             }
-            else {
-                // Set now playing status
-                lastfm_api.now_playing(_p.song.title,
-                    _p.song.artist,
-                    _p.song.album,
-                    function(response) {
-                    });
-                
-                now_playing_sent = true;
-                scrobbled = false;
-            }
-
+            //do toast if need to toast and enabled
             if (need_to_toast == true && SETTINGS.toast == true){
               ToastyPopup(_p.song.cover, _p.song.title, _p.song.artist);
               need_to_toast = false;

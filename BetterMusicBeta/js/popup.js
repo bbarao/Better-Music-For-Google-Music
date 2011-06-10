@@ -22,6 +22,7 @@ function render_popup(){
     render_song();
     render_auth_link();
     render_playing_controls();
+    render_google_rating();
 }
 
 /* Render functions */
@@ -155,11 +156,28 @@ function render_playing_controls(){
             $('#playPause').removeClass('goog-flat-button-checked');            
     }
 
-    $('#playPause').click(playPause);
-    $('#rew').click(prevSong);
-    $('#ff').click(nextSong);
+    $('#playPause').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(playPause);
+    $('#rew').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(prevSong);
+    $('#ff').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(nextSong);
     $('#repeat_mode_button').click(toggleRepeat);
     $('#shuffle_mode_button').click(toggleShuffle);
+}
+
+/**
+ * Renders the Google
+ */
+
+function render_google_rating(){
+    if(bp.player.song){
+        $('#google-buttons').html('<div class="rating-container hover-button"><div class="goog-inline-block goog-flat-button thumbs-up-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div><div class="goog-inline-block goog-flat-button thumbs-down-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div></div>');
+        $('.thumbs-up-button').hover(function(){
+            $(this).toggleClass('goog-flat-button-hover')
+        }).click(ratingUp);
+        $('.thumbs-down-button').hover(function(){
+            $(this).toggleClass('goog-flat-button-hover')
+        }).click(ratingDown);
+        //ADD CHECKING FOR THUMB
+    }
 }
 
 /**
@@ -295,6 +313,16 @@ function toggleShuffle(){
     setTimeout("render_playing_controls()", 500);
 }
 
+function ratingUp(){
+    sendCommand("ratingUp");
+    setTimeout("render_popup()", 150);
+}
+
+function ratingDown(){
+    sendCommand("ratingDown");
+    setTimeout("render_popup()", 150);
+}
+
 function FindMusicBetaTab(callback) {
 chrome.windows.getAll({populate: true}, function(windows) {
     for (var window = 0; window < windows.length; window++) {
@@ -319,6 +347,18 @@ function sendCommand(command) {
         if (tab_id) {
           if (command == "foreground") {
             chrome.tabs.update(tab_id, {selected: true});
+          } else if (command == "ratingUp") {
+            chrome.tabs.executeScript(tab_id,
+                {
+                  code: "location.assign('javascript:thumbsUp();void 0');",
+                  allFrames: true
+                });
+          } else if (command == "ratingDown") {
+            chrome.tabs.executeScript(tab_id,
+                {
+                  code: "location.assign('javascript:thumbsDown();javascript:void 0');",
+                  allFrames: true
+                });
           } else {
             chrome.tabs.executeScript(tab_id,
                 {

@@ -23,7 +23,9 @@ function Player(parser) {
         title: parser._get_song_title(),
         artist: parser._get_song_artist(),
         album: parser._get_song_album(),
-        cover: parser._get_song_cover()
+        cover: parser._get_song_cover(),
+        thumbsup: parser._get_is_thumbs_up(),
+        thumbsdown: parser._get_is_thumbs_down()
     };
 }
 
@@ -141,6 +143,24 @@ GoogleMusicParser.prototype._get_song_album = function() {
     return null;
 };
 
+/**
+ * Get current song thumbs up
+ *
+ * @return True if song has thumbs up, false if not
+ */
+GoogleMusicParser.prototype._get_is_thumbs_up = function() {
+    return ($("#thumbsUpPlayer").attr("class") == "thumbsUpSelected");
+};
+
+/**
+ * Get current song thumbs down
+ *
+ * @return True if song has thumbs down, false if not
+ */
+GoogleMusicParser.prototype._get_is_thumbs_down = function() {
+    return ($("#thumbsDownPlayer").attr("class") == "thumbsDownSelected");
+};
+
 var port = chrome.extension.connect({name: "musicbeta"});
 
 //send information immediately - populate plugin information
@@ -172,3 +192,12 @@ document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModif
 function SendMessage(){
     port.postMessage(new Player(new GoogleMusicParser()));
 }
+
+// Thumbing scripts
+(function() {
+    var script = document.createElement("script");
+    script.src = "http://code.jquery.com/jquery-1.6.1.min.js";
+    document.body.appendChild( script );
+})()
+injectScript("function thumbsUp(){ var event = document.createEvent('MouseEvents'); event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); $('#thumbsUpPlayer')[0].dispatchEvent(event);}");
+injectScript("function thumbsDown(){ var event = document.createEvent('MouseEvents'); event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); $('#thumbsDownPlayer')[0].dispatchEvent(event);}");
