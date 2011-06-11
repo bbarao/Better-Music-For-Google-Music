@@ -13,6 +13,7 @@ var bp = chrome.extension.getBackgroundPage();
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_popup();
+	notification_autoclose();
 });
 
 function render_popup(){
@@ -23,6 +24,28 @@ function render_popup(){
     render_auth_link();
     render_playing_controls();
     render_google_rating();
+}
+
+/* Notification closing */
+
+// Auto closes notification after 8 seconds, stops auto close if moused over, then starts 2 second close count after close
+function notification_autoclose(){
+	if($('body').hasClass('notification')){
+		windowTimer = setTimeout(function(){window.close();}, '8000');
+		window.onmouseout = function(e){
+			windowTimer = setTimeout(function(){window.close();}, '2000');
+		}
+		window.onmouseover = function(e){
+			clearTimeout(windowTimer);
+		}
+	}
+}
+
+// Closes the notification
+function notification_close(){
+	if($('body').hasClass('notification')){
+		window.close();
+	}
 }
 
 /* Render functions */
@@ -173,7 +196,12 @@ function render_google_rating(){
         $('.thumbs-down-button').hover(function(){
             $(this).toggleClass('goog-flat-button-hover')
         }).click(ratingDown);
-        //ADD CHECKING FOR THUMB
+        if(bp.player.song.thumbsup == "true"){
+			$('#google-buttons').addClass('rating-up');
+		}
+		else if(bp.player.song.thumbsdown == "true"){
+			$('#google-buttons').addClass('rating-down');
+		}
     }
 }
 
@@ -363,6 +391,9 @@ function sendCommand(command) {
                         "\");void 0');",
                   allFrames: true
                 });
+			if(command == 'nextSong' || command == 'prevSong'){
+				notification_close();
+			}
           }
         } else {
           chrome.tabs.create({url: 'http://music.google.com/music/listen',

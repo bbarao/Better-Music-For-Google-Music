@@ -149,7 +149,7 @@ GoogleMusicParser.prototype._get_song_album = function() {
  * @return True if song has thumbs up, false if not
  */
 GoogleMusicParser.prototype._get_is_thumbs_up = function() {
-    return ($("#thumbsUpPlayer").attr("class") == "thumbsUpSelected");
+    return $("#thumbsUpPlayer").attr("aria-pressed");
 };
 
 /**
@@ -158,7 +158,7 @@ GoogleMusicParser.prototype._get_is_thumbs_up = function() {
  * @return True if song has thumbs down, false if not
  */
 GoogleMusicParser.prototype._get_is_thumbs_down = function() {
-    return ($("#thumbsDownPlayer").attr("class") == "thumbsDownSelected");
+    return $("#thumbsDownPlayer").attr("aria-pressed");
 };
 
 var port = chrome.extension.connect({name: "musicbeta"});
@@ -199,5 +199,3 @@ function SendMessage(){
     script.src = "http://code.jquery.com/jquery-1.6.1.min.js";
     document.body.appendChild( script );
 })()
-injectScript("function thumbsUp(){ var event = document.createEvent('MouseEvents'); event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); $('#thumbsUpPlayer')[0].dispatchEvent(event);}");
-injectScript("function thumbsDown(){ var event = document.createEvent('MouseEvents'); event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); $('#thumbsDownPlayer')[0].dispatchEvent(event);}");

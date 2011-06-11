@@ -19,7 +19,7 @@ var now_playing_sent = false;
 var scrobbled = false;
 var lastfm_api = new LastFM(SETTINGS.api_key, SETTINGS.api_secret);
 
-var currentSong = ''; //var CurrentSongInfo = '';
+var currentSong = '';
 
 // Load settings from local storage
 lastfm_api.session.key = localStorage["session_key"] || null;
@@ -201,10 +201,7 @@ function ToastyPopup(){
   var notification = webkitNotifications.createHTMLNotification('notification.html');
   notification.show();
   // Then auto close!
-  setTimeout(function(){
-      notification.cancel();
-      }, '8000');
-
+  //setTimeout(function(){notification.cancel();}, '8000');
 }
 
  /**
