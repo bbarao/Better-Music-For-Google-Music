@@ -192,10 +192,3 @@ document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModif
 function SendMessage(){
     port.postMessage(new Player(new GoogleMusicParser()));
 }
-
-// Thumbing scripts
-(function() {
-    var script = document.createElement("script");
-    script.src = "http://code.jquery.com/jquery-1.6.1.min.js";
-    document.body.appendChild( script );
-})()

@@ -196,7 +196,7 @@ function get_lastfm_session(token) {
   * Sends the information to the desktop toast
   */
 function ToastyPopup(){
-  TrackUse('Toast');
+  TrackUse('Toast - v1.2.1');
   // Then show the notification
   var notification = webkitNotifications.createHTMLNotification('notification.html');
   notification.show();
