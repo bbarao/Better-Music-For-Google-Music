@@ -16,7 +16,9 @@ var currSong = bp.currentSong;
 $(document).ready(function() {
     render_popup();
 	notification_autoclose();
-    setInterval(function(){auto_update();}, '1000');
+    if(!($('body').hasClass('notification'))){
+       setInterval(function(){auto_update();}, '1000');
+    }
 });
 
 function render_popup(){
