@@ -80,8 +80,7 @@ GoogleMusicParser.prototype._get_repeat_mode = function() {
  *
  * @return array of playlists
  */
-GoogleMusicParser.prototype._get_playlists() = function() {
-    
+GoogleMusicParser.prototype._get_playlists = function() {
     return $("#repeat_mode_button").attr("class");
 };
 /**
