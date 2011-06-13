@@ -27,6 +27,7 @@ function render_popup(){
     render_toast_link();
     render_miniplayer_link();
     render_song();
+    render_playlist_links();
     render_auth_link();
     render_playing_controls();
     render_google_rating();
@@ -152,6 +153,19 @@ function render_miniplayer_link() {
     })
     .click(open_miniplayer)
     .text("Open Mini-Player");
+}
+
+/**
+ * Renders the links to start playlists
+ */
+function render_playlist_links() {
+    /*$("#playlists").html('<a></a>');
+    $("#playlists a")
+    .attr({
+        href: "#" 
+    })
+    .click(open_miniplayer)
+    .text("Open Mini-Player");*/
 }
 
 /**
@@ -298,6 +312,13 @@ function on_logout() {
 function open_miniplayer() {
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
+}
+
+/**
+ * Playlist link was clicked
+ */
+function play_playlist(playlistID) {
+   
 }
 
 /**

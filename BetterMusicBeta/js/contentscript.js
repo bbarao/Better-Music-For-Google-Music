@@ -81,7 +81,17 @@ GoogleMusicParser.prototype._get_repeat_mode = function() {
  * @return array of playlists
  */
 GoogleMusicParser.prototype._get_playlists = function() {
-    return $("#repeat_mode_button").attr("class");
+    var playlists = [];
+    var playlist = [];
+    $('#magic-playlists li').each(function(){
+        playlist = [$(this).attr("id"), $(this).children('.fade-out-content').html()];
+        playlists.push(playlist);
+    });
+    $('#playlists li').each(function(){
+        playlist = [$(this).attr("id"), $(this).children('.fade-out-content').html()];
+        playlists.push(playlist);
+    });
+    return playlists;
 };
 /**
  * Get current song playing position
@@ -209,45 +219,3 @@ function SendMessage(){
 var obj = document.querySelector("#header .search");
 obj.parentNode.removeChild(obj);
 document.body.appendChild(obj);
-
-// Love button in player window
-document.getElementById("playerSongTitle").addEventListener("DOMSubtreeModified", function() {
-    placeholder_love_button();
-});
-
-document.getElementById("playerArtist").addEventListener("DOMSubtreeModified", function() {
-    placeholder_love_button();
-});
-
-function placeholder_love_button(){
-    if(bp.lastfm_api.session.name && bp.lastfm_api.session.key) {
-        //add button/change styles - if not already there
-        render_love_button();
-    }
-    else{
-        $("#love-button").remove();
-        //reset styles
-    }
-}
-
-function render_love_button() {    
-    $("#love-button").html('<img src="img/ajax-loader.gif">');
-    
-    bp.lastfm_api.is_track_loved(bp.player.song.title,
-            bp.player.song.artist, 
-            function(result) {
-                $("#love-button").html('<a href="#"></a>');
-        
-                if(result) {
-                    $("#love-button a").attr({ title: "Unlove this song"})
-                    .click(on_unlove)
-                    .addClass("loved");
-            
-                }
-                else {
-                    $("#love-button a").attr({ title: "Love this song" })
-                    .click(on_love)
-                    .addClass("notloved");
-                }
-            });
-}
