@@ -23,17 +23,18 @@
    "background_page": "background.html",
    "content_scripts": [ 
       {
-         "js": ["js/inject.js"],
-         "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"]
-      },
-      {
-         "js": ["js/contentscript.js"],
+         "css": [ "css/minimal-music.css" ],
+         "js": ["js/inject.js", "js/contentscript.js"],
          "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"]
       },
       {
          "js": ["js/jquery-1.6.1.min.js"],
          "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"],
          "run_at": "document_start"
-      }
+      },
+      {
+         "js" : ["js/contentscript.mediakeys.js"],
+         "matches": [ "\u003Call_urls\u003E" ]
+       }
    ]
 }

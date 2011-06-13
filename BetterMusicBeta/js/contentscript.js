@@ -201,3 +201,8 @@ document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModif
 function SendMessage(){
     port.postMessage(new Player(new GoogleMusicParser()));
 }
+
+//
+var obj = document.querySelector("#header .search");
+obj.parentNode.removeChild(obj);
+document.body.appendChild(obj);
