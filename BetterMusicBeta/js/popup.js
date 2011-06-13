@@ -10,15 +10,13 @@
 /* Background page */
 var bp = chrome.extension.getBackgroundPage();
 
-var mpSong = bp.currentSong;
+var currSong = bp.currentSong;
 
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_popup();
 	notification_autoclose();
-    if($('body').hasClass('miniplayer')){
-       setInterval(function(){miniplayer_update();}, '1000');
-    }
+    setInterval(function(){auto_update();}, '1000');
 });
 
 function render_popup(){
@@ -55,11 +53,11 @@ function notification_close(){
 	}
 }
 
-/* Miniplayer updating */
+/* Auto updating */
 
-function miniplayer_update(){
-    if(mpSong != bp.currentSong){
-        mpSong = bp.currentSong;
+function auto_update(){
+    if(currSong != bp.currentSong){
+        currSong = bp.currentSong;
         render_popup();
     }
 }
