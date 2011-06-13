@@ -199,9 +199,9 @@ function render_playing_controls(){
         $('#rew').removeClass('goog-flat-button-disabled');
         $('#ff').removeClass('goog-flat-button-disabled');
         if(bp.player.is_playing)
-            $('#playPause').addClass('goog-flat-button-checked');
+            $('#playPause').addClass('goog-flat-button-checked').attr({ title: "Pause song"});
         else
-            $('#playPause').removeClass('goog-flat-button-checked');            
+            $('#playPause').removeClass('goog-flat-button-checked').attr({ title: "Resume song"});            
     }
 
     $('#playPause').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(playPause);

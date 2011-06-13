@@ -170,6 +170,9 @@ GoogleMusicParser.prototype._get_is_thumbs_down = function() {
     return $("#thumbsDownPlayer").attr("aria-pressed");
 };
 
+
+// Non-Parsing functions
+
 var port = chrome.extension.connect({name: "musicbeta"});
 
 //send information immediately - populate plugin information
@@ -202,7 +205,49 @@ function SendMessage(){
     port.postMessage(new Player(new GoogleMusicParser()));
 }
 
-//
+// Initialize the search bar for minimal CSS
 var obj = document.querySelector("#header .search");
 obj.parentNode.removeChild(obj);
 document.body.appendChild(obj);
+
+// Love button in player window
+document.getElementById("playerSongTitle").addEventListener("DOMSubtreeModified", function() {
+    placeholder_love_button();
+});
+
+document.getElementById("playerArtist").addEventListener("DOMSubtreeModified", function() {
+    placeholder_love_button();
+});
+
+function placeholder_love_button(){
+    if(bp.lastfm_api.session.name && bp.lastfm_api.session.key) {
+        //add button/change styles - if not already there
+        render_love_button();
+    }
+    else{
+        $("#love-button").remove();
+        //reset styles
+    }
+}
+
+function render_love_button() {    
+    $("#love-button").html('<img src="img/ajax-loader.gif">');
+    
+    bp.lastfm_api.is_track_loved(bp.player.song.title,
+            bp.player.song.artist, 
+            function(result) {
+                $("#love-button").html('<a href="#"></a>');
+        
+                if(result) {
+                    $("#love-button a").attr({ title: "Unlove this song"})
+                    .click(on_unlove)
+                    .addClass("loved");
+            
+                }
+                else {
+                    $("#love-button a").attr({ title: "Love this song" })
+                    .click(on_love)
+                    .addClass("notloved");
+                }
+            });
+}
