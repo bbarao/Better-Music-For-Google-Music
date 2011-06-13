@@ -15,6 +15,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.miniplayer #lastfmContainer{
+    height:150px;
+}
+
 p {
     line-height: 100%;
     padding: 0;
@@ -87,7 +91,7 @@ a:hover {
 }
 
 #playing_controls{
-    padding:2px;
+    padding:0 2px;
     background:#4C4C4C;
     border-top:2px solid #ED8335;
 }
@@ -100,6 +104,12 @@ a:hover {
     border:4px solid #ED8335;
     color:#FFFFFF;
     font-weight:bold;
+}
+
+.miniplayerBottom{
+    border:0 !important;
+    padding:2px !important;
+    border:2px solid #ED8335 !important;
 }
 
 #bottom a{
@@ -131,7 +141,7 @@ a:hover {
     color:#000000;
 }
 
-#optionsButton{
+#optionsButton, #miniplayerMore{
     float: left;
 }
         

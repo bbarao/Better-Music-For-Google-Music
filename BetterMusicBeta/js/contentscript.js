@@ -17,6 +17,7 @@ function Player(parser) {
     this.is_playing = parser._get_is_playing();
     this.shuffle = parser._get_shuffle();
     this.repeat_mode = parser._get_repeat_mode();
+    this.playlists = parser._get_playlists();
     this.song = {
         position: parser._get_song_position(),
         time: parser._get_song_time(),
@@ -74,6 +75,15 @@ GoogleMusicParser.prototype._get_repeat_mode = function() {
     return $("#repeat_mode_button").attr("class");
 };
 
+/**
+ * Parses playlists
+ *
+ * @return array of playlists
+ */
+GoogleMusicParser.prototype._get_playlists() = function() {
+    
+    return $("#repeat_mode_button").attr("class");
+};
 /**
  * Get current song playing position
  *

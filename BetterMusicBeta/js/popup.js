@@ -10,16 +10,22 @@
 /* Background page */
 var bp = chrome.extension.getBackgroundPage();
 
+var mpSong = bp.currentSong;
+
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_popup();
 	notification_autoclose();
+    if($('body').hasClass('miniplayer')){
+       setInterval(function(){miniplayer_update();}, '1000');
+    }
 });
 
 function render_popup(){
     render_scrobble_link();
     render_options_link();
     render_toast_link();
+    render_miniplayer_link();
     render_song();
     render_auth_link();
     render_playing_controls();
@@ -46,6 +52,15 @@ function notification_close(){
 	if($('body').hasClass('notification')){
 		window.close();
 	}
+}
+
+/* Miniplayer updating */
+
+function miniplayer_update(){
+    if(mpSong != bp.currentSong){
+        mpSong = bp.currentSong;
+        render_popup();
+    }
 }
 
 /* Render functions */
@@ -127,6 +142,19 @@ function render_toast_link() {
 }
 
 /**
+ * Renders the link to open miniplayer
+ */
+function render_miniplayer_link() {
+    $("#miniplayer").html('<a></a>');
+    $("#miniplayer a")
+    .attr({
+        href: "#" 
+    })
+    .click(open_miniplayer)
+    .text("Open Mini-Player");
+}
+
+/**
  * Renders authentication/profile link
  */
 function render_auth_link() {
@@ -176,9 +204,9 @@ function render_playing_controls(){
             $('#playPause').removeClass('goog-flat-button-checked');            
     }
 
-    $('#playPause').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(playPause);
-    $('#rew').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(prevSong);
-    $('#ff').hover(function(){$(this).toggleClass('goog-flat-button-hover')}).click(nextSong);
+    $('#playPause').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(playPause);
+    $('#rew').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(prevSong);
+    $('#ff').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(nextSong);
     $('#repeat_mode_button').click(toggleRepeat);
     $('#shuffle_mode_button').click(toggleShuffle);
 }
@@ -262,6 +290,14 @@ function on_auth() {
 function on_logout() {
     bp.clear_session();
     render_auth_link();
+}
+
+/**
+ * Miniplayer link was clicked
+ */
+function open_miniplayer() {
+    var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
+    notification.show();
 }
 
 /**
