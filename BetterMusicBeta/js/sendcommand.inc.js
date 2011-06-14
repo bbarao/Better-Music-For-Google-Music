@@ -25,15 +25,15 @@ chrome.windows.getAll({populate: true}, function(windows) {
 
 // Send the given command to a tab showing Music Beta,
 // or open one if non exists.
-function sendCommand(command) {
+function sendCommand(command, options) {
     FindMusicBetaTab(function(tab_id) {
         if (tab_id) {
           if (command == "foreground") {
             chrome.tabs.update(tab_id, {selected: true});
-          } else if (command == "ratingUp") {
+          } else if (command == "fullCommand") {
             chrome.tabs.executeScript(tab_id,
                 {
-                  code: "location.assign('javascript:thumbsUp();void 0');",
+                  code: "location.assign('javascript:SJBpost(" + options + ");void 0');",
                   allFrames: true
                 });
           } else {

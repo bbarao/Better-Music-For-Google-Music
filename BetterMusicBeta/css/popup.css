@@ -15,10 +15,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.miniplayer #lastfmContainer{
-    height:150px;
-}
-
 p {
     line-height: 100%;
     padding: 0;
@@ -96,7 +92,7 @@ a:hover {
     border-top:2px solid #ED8335;
 }
 
-#bottom {
+#bottom{
     margin-top: 0px;
     font-size: 11px;
     background:#ED8335 url(../img/background_orange.gif);
@@ -132,7 +128,7 @@ a:hover {
     -webkit-background-clip: padding-box;
 }
 
-#optionsPanel h2{
+#optionsPanel h2, #playlistHolder h2{
     margin:2px;
     color:#ED8335;
 }
@@ -185,6 +181,48 @@ a.loved {
 
 a.notloved {
     background-position: 0 -16px;
+}
+
+/* Miniplayer Specific */
+
+.miniplayer #lastfmContainer{
+    height:150px;
+}
+
+.miniplayer #miniplayerPlaylist{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:#ED8335 url(../img/background_orange.gif);
+    padding:2px;
+    border:4px solid #ED8335;
+    display:none;
+    font-size: 11px;
+    padding:2px;
+    font-weight:bold;
+}
+
+.miniplayer #miniplayerPlaylist #closeMiniPlaylist{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    width:30px;
+    height:30px;
+    cursor:pointer;
+    background:url(../img/close_button.png);
+}
+
+#playlistHolder{
+    color:#4C4C4C;
+    background:#FFFFFF;
+    -webkit-border-radius:3px;
+    border:1px solid #ED8335;
+    clear:both;
+    padding:3px;
+    margin:2px;
+    -webkit-background-clip: padding-box;
 }
 
 .cf:before,

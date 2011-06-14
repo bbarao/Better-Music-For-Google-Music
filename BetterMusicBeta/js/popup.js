@@ -24,6 +24,7 @@ $(document).ready(function() {
 function render_popup(){
     render_scrobble_link();
     render_options_link();
+    render_miniplayer_playlist_link();
     render_toast_link();
     render_miniplayer_link();
     render_song();
@@ -117,6 +118,23 @@ function render_options_link() {
 }
 
 /**
+ * Renders the link to toggle the miniplayer playlist panel
+ */
+function render_miniplayer_playlist_link() {
+    if(bp.playlists.length>0){
+        $("#miniPlaylist").html('<a></a>');
+        $("#miniPlaylist a")
+        .attr({
+            href: "#" 
+        })
+        .click(function(){
+            $("#miniplayerPlaylist").css('display', 'block');
+        })
+        .text("Playlists");
+    }
+}
+
+/**
  * Renders the link to turn on/off scrobbling
  */
 function render_scrobble_link() {
@@ -159,13 +177,30 @@ function render_miniplayer_link() {
  * Renders the links to start playlists
  */
 function render_playlist_links() {
-    /*$("#playlists").html('<a></a>');
-    $("#playlists a")
-    .attr({
-        href: "#" 
-    })
-    .click(open_miniplayer)
-    .text("Open Mini-Player");*/
+    if(bp.playlists.length>0 && $("#optionsSection").length>0){
+        playlistSectionContent = '<h2>Playlists</h2>';
+        $("#optionsSection").before('<div id="playlistSection"></div>');
+        playlistSectionContent += build_playlist_links();
+        $('#playlistSection').html(playlistSectionContent);
+    }
+    else if(bp.playlists.length>0 && $("#miniplayerPlaylist").length>0){
+        playlistSectionContent = '<h2>Playlists</h2>';
+        playlistSectionContent += build_playlist_links();
+        $('#playlistHolder').html(playlistSectionContent);
+        $('#closeMiniPlaylist').click(hide_playlists_miniplayer);
+    }
+}
+
+/**
+ * Builds playlist links and content
+ */
+function build_playlist_links(){
+    playlists = bp.playlists;
+    playlistLinks = "";
+    for (var i=0;i<playlists.length; i++) {
+        playlistLinks += '<a href="javascript:playlistStart(\'' + playlists[i][0] + '\');">' + playlists[i][1] + '</a><br />';
+    }
+    return playlistLinks;
 }
 
 /**
@@ -307,18 +342,18 @@ function on_logout() {
 }
 
 /**
+ * Hides playlists window in miniplayer
+ */
+function hide_playlists_miniplayer() {
+    $("#miniplayerPlaylist").css('display', 'none');
+}
+
+/**
  * Miniplayer link was clicked
  */
 function open_miniplayer() {
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
-}
-
-/**
- * Playlist link was clicked
- */
-function play_playlist(playlistID) {
-   
 }
 
 /**
@@ -403,4 +438,12 @@ function ratingUp(){
 function ratingDown(){
     sendCommand("ratingDown");
     setTimeout("render_popup()", 150);
+}
+
+function playlistStart(plsID){
+    sendCommand("fullCommand", "\"playlistSelected\", this, {id: \"" + plsID + "\"}");
+    sendCommand("fullCommand", "\"playlistSelected\", this, {id: \"" + plsID + "\"}");
+    setTimeout(sendCommand("fullCommand", "\"playPlaylist\", null, \"1\""), 200);
+    hide_playlists_miniplayer();
+    setTimeout("render_popup()", 100);
 }

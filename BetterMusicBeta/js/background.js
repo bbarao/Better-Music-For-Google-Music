@@ -15,6 +15,7 @@ var SETTINGS = {
 };
 
 var player = {}; // Previous player state
+var playlists = [];
 var now_playing_sent = false;
 var scrobbled = false;
 var lastfm_api = new LastFM(SETTINGS.api_key, SETTINGS.api_secret);
@@ -55,14 +56,14 @@ function port_on_connect(port) {
 function port_on_message(message) {
     // Current player state
     var _p = message;
-
-    // Basic song check for toasting
-    if(!(currentSong == (_p.song.title + _p.song.artist))){
-      currentSong = _p.song.title + _p.song.artist;
-      need_to_toast = true;
-    }
+    playlists = _p.playlists;
     
     if(_p.has_song) {
+        // Basic song check for toasting
+        if(!(currentSong == (_p.song.title + _p.song.artist))){
+          currentSong = _p.song.title + _p.song.artist;
+          need_to_toast = true;
+        }
         if(_p.is_playing) {
             chrome.browserAction.setIcon({'path': 'img/main-play.png' });
             //do scrobble if enabled
@@ -196,7 +197,7 @@ function get_lastfm_session(token) {
   * Sends the information to the desktop toast
   */
 function ToastyPopup(){
-  TrackUse('Toast - v1.2.3');
+  TrackUse('Toast - v1.3.0');
   // Then show the notification
   var notification = webkitNotifications.createHTMLNotification('notification.html');
   notification.show();

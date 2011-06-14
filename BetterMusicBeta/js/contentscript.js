@@ -84,11 +84,11 @@ GoogleMusicParser.prototype._get_playlists = function() {
     var playlists = [];
     var playlist = [];
     $('#magic-playlists li').each(function(){
-        playlist = [$(this).attr("id"), $(this).children('.fade-out-content').html()];
+        playlist = [$(this).attr("id"), $(this).find('.nav-item .fade-out-content').attr('title')];
         playlists.push(playlist);
     });
     $('#playlists li').each(function(){
-        playlist = [$(this).attr("id"), $(this).children('.fade-out-content').html()];
+        playlist = [$(this).attr("id"), $(this).find('.nav-item .fade-out-content').attr('title')];
         playlists.push(playlist);
     });
     return playlists;
@@ -185,8 +185,8 @@ GoogleMusicParser.prototype._get_is_thumbs_down = function() {
 
 var port = chrome.extension.connect({name: "musicbeta"});
 
-//send information immediately - populate plugin information
-SendMessage();
+//send information "immediately" - populate plugin information
+setTimeout("SendMessage()", 200);
 
 //Auto Send Message every 10 seconds
 window.setInterval(function() {
