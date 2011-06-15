@@ -6,6 +6,7 @@
  * Licensed under the MIT license
  */
 
+var currentVersion = "1.3.1"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -95,6 +96,7 @@ function port_on_message(message) {
                                     }
                                 }
                             });
+							TrackUse('Scrobble', currentVersion);
                     }
                 }
                 else {
@@ -203,8 +205,7 @@ function ToastyPopup(){
             miniplayer_open = true;
     });
     if(!(miniplayer_open)){
-          TrackUse('Toast - v1.3.1');
-          // Then show the notification
+          TrackUse('Toast', currentVersion);
           var notification = webkitNotifications.createHTMLNotification('notification.html');
           notification.show();  
     }
@@ -213,6 +214,6 @@ function ToastyPopup(){
  /**
   * Send event to GA
   */
-function TrackUse(eventName){
-  _gaq.push(['_trackEvent', 'MusicToast', eventName]);
+function TrackUse(eventName, eventTag){
+  _gaq.push(['_trackEvent', 'MusicToast', eventName, eventTag]);
 }

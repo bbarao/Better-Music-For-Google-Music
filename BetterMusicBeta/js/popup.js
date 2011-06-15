@@ -63,6 +63,7 @@ function auto_update(){
         currSong = bp.currentSong;
         render_popup();
     }
+    render_playing_controls();
 }
 
 /* Render functions */
@@ -414,7 +415,7 @@ function on_unlove() {
 
 function playPause(){
     sendCommand("playPause");
-    setTimeout("render_popup()", 200);
+    setTimeout("render_playing_controls()", 200);
 }
 
 function prevSong(){
