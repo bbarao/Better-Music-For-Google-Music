@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.3.2"
+var currentVersion = "1.3.3"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -89,6 +89,7 @@ function port_on_message(message) {
                                   // Song was scrobled, waiting for the next song
                                     scrobbled = true;
                                     now_playing_sent = false;
+                                    TrackUse('Scrobble', currentVersion);
                                 }
                                 else {
                                     if(response.error == 9) {
@@ -97,7 +98,6 @@ function port_on_message(message) {
                                     }
                                 }
                             });
-							TrackUse('Scrobble', currentVersion);
                     }
                 }
                 else {
