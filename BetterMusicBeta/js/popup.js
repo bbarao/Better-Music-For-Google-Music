@@ -158,6 +158,14 @@ function render_toast_link() {
     })
     .click(on_toggle_toast)
     .text(bp.SETTINGS.toast ? "Stop toasting" : "Resume toasting");
+    var miniplayer_open = false;
+    chrome.extension.getViews({type:"notification"}).forEach(function(win) {
+        if(win.is_miniplayer())
+            miniplayer_open = true;
+    });
+    if (miniplayer_open){
+        $("#toasting").html($("#toasting").html() + ' - Disabled (Miniplayer open)');
+    }
 }
 
 /**
@@ -354,6 +362,7 @@ function hide_playlists_miniplayer() {
 function open_miniplayer() {
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
+    setTimeout("render_toast_link()",150);
 }
 
 /**
@@ -446,4 +455,9 @@ function playlistStart(plsID){
     setTimeout(sendCommand("fullCommand", "\"playPlaylist\", null, \"1\""), 200);
     hide_playlists_miniplayer();
     setTimeout("render_popup()", 100);
+}
+
+/* Testing for instance of popup being the miniplayer */
+function is_miniplayer(){
+    return $('body').hasClass('miniplayer');
 }

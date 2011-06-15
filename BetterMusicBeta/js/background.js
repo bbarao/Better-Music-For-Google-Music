@@ -197,10 +197,17 @@ function get_lastfm_session(token) {
   * Sends the information to the desktop toast
   */
 function ToastyPopup(){
-  TrackUse('Toast - v1.3.0');
-  // Then show the notification
-  var notification = webkitNotifications.createHTMLNotification('notification.html');
-  notification.show();
+    var miniplayer_open = false;
+    chrome.extension.getViews({type:"notification"}).forEach(function(win) {
+        if(win.is_miniplayer())
+            miniplayer_open = true;
+    });
+    if(!(miniplayer_open)){
+          TrackUse('Toast - v1.3.1');
+          // Then show the notification
+          var notification = webkitNotifications.createHTMLNotification('notification.html');
+          notification.show();  
+    }
 }
 
  /**
