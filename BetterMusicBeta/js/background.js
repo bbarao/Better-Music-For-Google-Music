@@ -96,7 +96,7 @@ function port_on_message(message) {
                                     }
                                 }
                             });
-							TrackUse('Scrobble - v1.3.1');
+							TrackUse('Scrobble', currentVersion);
                     }
                 }
                 else {
