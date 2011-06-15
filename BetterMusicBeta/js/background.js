@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.3.1"
+var currentVersion = "1.3.2"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -64,6 +64,7 @@ function port_on_message(message) {
         if(!(currentSong == (_p.song.title + _p.song.artist))){
           currentSong = _p.song.title + _p.song.artist;
           need_to_toast = true;
+          TrackUse('Song', currentVersion);
         }
         if(_p.is_playing) {
             chrome.browserAction.setIcon({'path': 'img/main-play.png' });
