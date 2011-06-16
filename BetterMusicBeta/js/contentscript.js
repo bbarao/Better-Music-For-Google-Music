@@ -212,7 +212,7 @@ document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModif
 
 // Function to send the message
 function SendMessage(){
-    port.postMessage(new Player(new GoogleMusicParser()));
+    port.postMessage({song: new Player(new GoogleMusicParser())});
 }
 
 // Initialize the search bar for minimal CSS

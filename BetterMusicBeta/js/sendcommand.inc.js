@@ -26,30 +26,23 @@ chrome.windows.getAll({populate: true}, function(windows) {
 // Send the given command to a tab showing Music Beta,
 // or open one if non exists.
 function sendCommand(command, options) {
-    FindMusicBetaTab(function(tab_id) {
-        if (tab_id) {
-          if (command == "foreground") {
-            chrome.tabs.update(tab_id, {selected: true});
-          } else if (command == "fullCommand") {
-            chrome.tabs.executeScript(tab_id,
-                {
-                  code: "location.assign('javascript:SJBpost(" + options + ");void 0');",
-                  allFrames: true
-                });
-          } else {
-            chrome.tabs.executeScript(tab_id,
-                {
-                  code: "location.assign('javascript:SJBpost(\"" + command +
-                        "\");void 0');",
-                  allFrames: true
-                });
-			if(command == 'nextSong' || command == 'prevSong'){
-				notification_close();
-			}
-          }
-        } else {
-          chrome.tabs.create({url: 'http://music.google.com/music/listen',
-                              selected: true});
+  FindMusicBetaTab(function(tab_id) {
+    if (tab_id) {
+      if (command == "foreground") {
+        chrome.tabs.update(tab_id, {selected: true});
+      } 
+      else if (command == "fullCommand") {
+        chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:SJBpost(" + options + ");void 0');", allFrames: true});
+      } 
+      else {
+        chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:SJBpost(\"" + command + "\");void 0');", allFrames: true});
+        if(command == 'nextSong' || command == 'prevSong'){
+          notification_close();
         }
-    });
+      }
+    } 
+    else {
+      chrome.tabs.create({url: 'http://music.google.com/music/listen', selected: true});
+    }
+  });
 }

@@ -11,6 +11,8 @@
 var bp = chrome.extension.getBackgroundPage();
 
 var currSong = bp.currentSong;
+var currPlaying = bp.is_playing;
+
 
 /* Render popup when DOM is ready */
 $(document).ready(function() {
@@ -56,6 +58,12 @@ function notification_close(){
 	}
 }
 
+function miniplayer_close(){
+    if($('body').hasClass('miniplayer')){
+        window.close();
+    }
+}
+
 /* Auto updating */
 
 function auto_update(){
@@ -63,7 +71,10 @@ function auto_update(){
         currSong = bp.currentSong;
         render_popup();
     }
-    render_playing_controls();
+    if(currPlaying != bp.is_playing){
+        currSong = bp.is_playing;
+        render_playing_controls();
+    }
 }
 
 /* Render functions */
@@ -159,12 +170,7 @@ function render_toast_link() {
     })
     .click(on_toggle_toast)
     .text(bp.SETTINGS.toast ? "Stop toasting" : "Resume toasting");
-    var miniplayer_open = false;
-    chrome.extension.getViews({type:"notification"}).forEach(function(win) {
-        if(win.is_miniplayer())
-            miniplayer_open = true;
-    });
-    if (miniplayer_open){
+    if (miniplayer_open()){
         $("#toasting").html($("#toasting").html() + ' - Disabled (Miniplayer open)');
     }
 }
@@ -179,7 +185,10 @@ function render_miniplayer_link() {
         href: "#" 
     })
     .click(open_miniplayer)
-    .text("Open Mini-Player");
+    .text("Open Miniplayer");
+    if (miniplayer_open()){
+        $("#miniplayer a").text('Re-Open Miniplayer');
+    }
 }
 
 /**
@@ -361,9 +370,14 @@ function hide_playlists_miniplayer() {
  * Miniplayer link was clicked
  */
 function open_miniplayer() {
+    chrome.extension.getViews({type:"notification"}).forEach(function(win) {
+        if(win.is_miniplayer)
+            win.miniplayer_close();
+    });
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
     setTimeout("render_toast_link()",150);
+    setTimeout("render_miniplayer_link()",150);
 }
 
 /**
@@ -458,7 +472,17 @@ function playlistStart(plsID){
     setTimeout("render_popup()", 100);
 }
 
-/* Testing for instance of popup being the miniplayer */
+/* Testing for instance of popup being the miniplayer, returns bool */
 function is_miniplayer(){
     return $('body').hasClass('miniplayer');
+}
+
+/* Checks if miniplayer is open, returns bool */
+function miniplayer_open(){
+    var miniplayer_open_bool = false;
+    chrome.extension.getViews({type:"notification"}).forEach(function(win) {
+        if(win.is_miniplayer())
+            miniplayer_open_bool = true;
+    });
+    return miniplayer_open_bool;
 }

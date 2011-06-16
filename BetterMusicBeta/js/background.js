@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.3.3"
+var currentVersion = "1.3.4"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -33,10 +33,6 @@ SETTINGS.scrobble = !(localStorage["scrobble"] == "false");
 // This enables toasting by default
 SETTINGS.toast = !(localStorage["toast"] == "false");
 
-if(!SETTINGS.scrobble) {
-    chrome.browserAction.setIcon({ 'path': SETTINGS.scrobbling_stopped_icon });
-}
-
 // Connect event handlers
 chrome.extension.onConnect.addListener(port_on_connect);
 
@@ -44,8 +40,7 @@ chrome.extension.onConnect.addListener(port_on_connect);
  * Content script has connected to the extension
  */
 function port_on_connect(port) {
-    console.assert(port.name == "musicbeta"); 
-
+    console.assert(port.name == "musicbeta");
     // Connect another port event handlers
     port.onMessage.addListener(port_on_message);
     port.onDisconnect.addListener(port_on_disconnect);
@@ -56,7 +51,7 @@ function port_on_connect(port) {
  */
 function port_on_message(message) {
     // Current player state
-    var _p = message;
+    var _p = message.song;
     playlists = _p.playlists;
     
     if(_p.has_song) {
@@ -177,6 +172,9 @@ function toggle_scrobble() {
     localStorage["scrobble"] = SETTINGS.scrobble;
 }
 
+/**
+ * Toggles setting to toast songs or not
+ */
 function toggle_toast() {
     SETTINGS.toast = !SETTINGS.toast;
     localStorage["toast"] = SETTINGS.toast;
