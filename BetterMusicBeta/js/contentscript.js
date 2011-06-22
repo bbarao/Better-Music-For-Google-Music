@@ -216,6 +216,6 @@ function SendMessage(){
 }
 
 // Initialize the search bar for minimal CSS
-var obj = document.querySelector("#header .search");
-obj.parentNode.removeChild(obj);
-document.body.appendChild(obj);
+//var obj = document.querySelector("#header .search");
+//obj.parentNode.removeChild(obj);
+//document.body.appendChild(obj);

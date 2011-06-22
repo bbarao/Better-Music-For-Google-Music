@@ -1,0 +1,27 @@
+.g-doc #header.g-section,
+.g-doc #coloredBar
+{
+	display: none;
+}
+
+body > .search
+{
+	position: absolute;
+	margin: 0;
+	top: 37px;
+	right: 10px;
+	border: solid 1px #ddd;
+}
+
+#oneGoogleWrapper
+{
+	background: #FFFFFF url(chrome-extension://bdollfdihekkbcgmbpjddfdaeigacmia/img/tinylogo.png) no-repeat top left;
+	border-bottom: solid 1px #ddd;
+}
+
+#gbar{
+	margin-left:160px;
+}
+#playing_controls{
+	background:none !important;
+}
