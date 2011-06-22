@@ -33,7 +33,13 @@ function sendCommand(command, options) {
       } 
       else if (command == "fullCommand") {
         chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:SJBpost(" + options + ");void 0');", allFrames: true});
-      } 
+      }
+ 	  else if (command == "thumbsUp"){
+		chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:thumbsUp();void 0');", allFrames: true});
+      }
+ 	  else if (command == "thumbsDown"){
+		chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:thumbsDown();void 0');", allFrames: true});
+      }
       else {
         chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:SJBpost(\"" + command + "\");void 0');", allFrames: true});
         if(command == 'nextSong' || command == 'prevSong'){

@@ -124,7 +124,7 @@ function render_options_link() {
         href: "#" 
     })
     .click(function(){
-        $("#optionsPanel").slideToggle('fast');
+        $("#optionsPanel").toggle(0);
     })
     .text("Options");
 }
@@ -287,15 +287,19 @@ function render_google_rating(){
         $('#google-buttons').html('<div class="rating-container hover-button"><div class="goog-inline-block goog-flat-button thumbs-up-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div><div class="goog-inline-block goog-flat-button thumbs-down-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div></div>');
         $('.thumbs-up-button').hover(function(){
             $(this).toggleClass('goog-flat-button-hover')
-        }).click(ratingUp);
+        }).click(thumbsUp);
         $('.thumbs-down-button').hover(function(){
             $(this).toggleClass('goog-flat-button-hover')
-        }).click(ratingDown);
+        }).click(thumbsDown);
         if(bp.player.song.thumbsup == "true"){
 			$('#google-buttons').addClass('rating-up');
 		}
 		else if(bp.player.song.thumbsdown == "true"){
 			$('#google-buttons').addClass('rating-down');
+		}
+		else{
+			$('#google-buttons').removeClass('rating-up');
+			$('#google-buttons').removeClass('rating-down');
 		}
     }
 }
@@ -454,14 +458,16 @@ function toggleShuffle(){
     setTimeout("render_playing_controls()", 500);
 }
 
-function ratingUp(){
-    sendCommand("ratingUp");
-    setTimeout("render_popup()", 150);
+function thumbsUp(){
+    sendCommand("thumbsUp");
+    setTimeout("render_google_rating()", 200);
+	setTimeout("render_google_rating()", 300);
 }
 
-function ratingDown(){
-    sendCommand("ratingDown");
-    setTimeout("render_popup()", 150);
+function thumbsDown(){
+    sendCommand("thumbsDown");
+    setTimeout("render_google_rating()", 200);
+	setTimeout("render_google_rating()", 300);
 }
 
 function playlistStart(plsID){
