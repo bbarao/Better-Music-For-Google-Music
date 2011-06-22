@@ -23,7 +23,6 @@
    "background_page": "background.html",
    "content_scripts": [ 
       {
-         "css": [ "css/minimal-music.css" ],
          "js": ["js/inject.js", "js/contentscript.js"],
          "matches": ["http://music.google.com/music/listen*", "https://music.google.com/music/listen*"]
       },
