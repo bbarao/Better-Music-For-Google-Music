@@ -229,12 +229,6 @@ function SendMessage(){
 //document.body.appendChild(obj);
 
 // Injection for thumbs
-(function() {
-    var script = document.createElement("script");
-    script.src = "http://code.jquery.com/jquery-1.6.1.min.js";
-    document.body.appendChild( script );
-})()
-
 injectScript("function triggerMouseEvent(element, eventname){ var event = document.createEvent('MouseEvents'); event.initMouseEvent(eventname, true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, element); element.dispatchEvent(event); }");
 injectScript("function replicateClick(element){ triggerMouseEvent(element, 'mouseover'); triggerMouseEvent(element, 'mousedown'); triggerMouseEvent(element, 'mouseup'); }");
 injectScript("function thumbsUp(){ replicateClick(document.getElementById('thumbsUpPlayer')); }");
