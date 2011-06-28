@@ -1,0 +1,76 @@
+{
+	"extDesc": {
+		"message": "改进 Google Music Beta 的体验: 记录、弹出通知、播放控件等等!"
+	},
+	"A8CB4D32": {
+		"message": "目前没有播放歌曲"
+	},
+	"7719C3C8": {
+		"message": "转到 Google Music"
+	},
+	"1F88C31B": {
+		"message": "选项"
+	},
+	"DCF793CC": {
+		"message": "播放列表"
+	},
+	"632A191B": {
+		"message": "停止记录"
+	},
+	"410827D1": {
+		"message": "继续记录"
+	},
+	"88215243": {
+		"message": "停止弹出"
+	},
+	"CFD75736": {
+		"message": "继续弹出"
+	},
+	"DBD92657": {
+		"message": " - 已禁用 (迷你播放器处于打开状态)"
+	},
+	"9EFC8A58": {
+		"message": "打开迷你播放器"
+	},
+	"26F083AF": {
+		"message": "重新打开迷你播放器"
+	},
+	"3544807A": {
+		"message": "<h2>播放列表</h2>"
+	},
+	"52FF8F1E": {
+		"message": "Last.FM 用户: "
+	},
+	"3260F019": {
+		"message": "注销"
+	},
+	"833B9F6F": {
+		"message": "连接到 Last.fm"
+	},
+	"5FEB6CDE": {
+		"message": "<div id=\"repeat_mode_button\" title=\"循环播放\"></div><div id=\"shuffle_mode_button\" title=\"随机播放\"></div><div id=\"rew\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"上一首\" role=\"button\" style=\"-webkit-user-select: none; \"></div><div id=\"playPause\" class=\"goog-flat-button goog-inline-block\" title=\"播放\" role=\"button\" style=\"-webkit-user-select: none; \"></div><div id=\"ff\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"下一首\" role=\"button\" style=\"-webkit-user-select: none; \"></div>"
+	},
+	"A3E7AECB": {
+		"message": "暂停"
+	},
+	"3035D7AC": {
+		"message": "继续"
+	},
+	"35454E57": {
+		"message": "取消喜爱这首歌曲"
+	},
+	"D86C4CF9": {
+		"message": "喜爱这首歌曲"
+	},
+	"_": {
+		"message": "_"
+	},
+	"_inf": {
+		"message": "Dean Lee <xslidian@gmail.com>",
+		"description": "Author"
+	},
+	"_gen": {
+		"message": "Localizer, http://www.mixesoft.com/localizer.html",
+		"description": "Editor"
+	}
+}

@@ -1,8 +1,9 @@
 {
    "name": "Better Music Beta for Google Music",
-   "description": "Mods Google Music Beta to improve the experience: scrobbling, toast notifications, play controls, and more!",
+   "description": "__MSG_extDesc__",
    "version": "1.4.0",
    "update_url": "http://clients2.google.com/service/update2/crx",
+   "default_locale": "en",
    "icons": {
       "16": "img/logo-16x16.png",
       "48": "img/logo-48x48.png",
