@@ -1,0 +1,69 @@
+{
+	"extDesc": {
+		"message": "Mods Google Music Beta to improve the experience: scrobbling, toast notifications, play controls, and more!",
+		"description": ""
+	},
+	"A8CB4D32": {
+		"message": "Nothing is playing"
+	},
+	"7719C3C8": {
+		"message": "Go to Google Music"
+	},
+	"1F88C31B": {
+		"message": "Options"
+	},
+	"DCF793CC": {
+		"message": "Playlists"
+	},
+	"632A191B": {
+		"message": "Stop scrobbling"
+	},
+	"410827D1": {
+		"message": "Resume scrobbling"
+	},
+	"88215243": {
+		"message": "Stop toasting"
+	},
+	"CFD75736": {
+		"message": "Resume toasting"
+	},
+	"DBD92657": {
+		"message": " - Disabled (Miniplayer open)"
+	},
+	"9EFC8A58": {
+		"message": "Open Miniplayer"
+	},
+	"26F083AF": {
+		"message": "Re-Open Miniplayer"
+	},
+	"3544807A": {
+		"message": "<h2>Playlists</h2>"
+	},
+	"52FF8F1E": {
+		"message": "Last.FM User: "
+	},
+	"3260F019": {
+		"message": "Logout"
+	},
+	"833B9F6F": {
+		"message": "Connect to Last.fm"
+	},
+	"5FEB6CDE": {
+		"message": "<div id=\"repeat_mode_button\" title=\"Repeat songs\"></div><div id=\"shuffle_mode_button\" title=\"Shuffle songs\"></div><div id=\"rew\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"Previous song\" role=\"button\" style=\"-webkit-user-select: none; \"></div><div id=\"playPause\" class=\"goog-flat-button goog-inline-block\" title=\"Play\" role=\"button\" style=\"-webkit-user-select: none; \"></div><div id=\"ff\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"Next song\" role=\"button\" style=\"-webkit-user-select: none; \"></div>"
+	},
+	"A3E7AECB": {
+		"message": "Pause song"
+	},
+	"3035D7AC": {
+		"message": "Resume song"
+	},
+	"35454E57": {
+		"message": "Unlove this song"
+	},
+	"D86C4CF9": {
+		"message": "Love this song"
+	},
+	"_": {
+		"message": ""
+	}
+}
