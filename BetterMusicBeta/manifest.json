@@ -1,7 +1,7 @@
 {
    "name": "Better Music Beta for Google Music",
    "description": "__MSG_extDesc__",
-   "version": "1.4.0",
+   "version": "1.4.2",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "default_locale": "en",
    "icons": {

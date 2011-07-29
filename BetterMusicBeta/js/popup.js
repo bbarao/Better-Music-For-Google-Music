@@ -88,7 +88,7 @@ function render_song() {
         $("#artist").text(bp.player.song.artist);
         $("#track").text(bp.player.song.title);
         cover = 'img/defaultcover.png';
-        if(bp.player.song.cover !== 'http:default_album_med.png')
+        if(bp.player.song.cover.indexOf('default_album_med.png') == -1)
             cover = bp.player.song.cover;
         $("#cover").attr({ src: cover, width: "60", height: "60" });
         
