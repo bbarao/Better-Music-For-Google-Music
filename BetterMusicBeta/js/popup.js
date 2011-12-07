@@ -34,6 +34,7 @@ function render_popup(){
     render_auth_link();
     render_playing_controls();
     render_google_rating();
+    render_toast_duration_input();
 }
 
 /* Notification closing */
@@ -41,7 +42,7 @@ function render_popup(){
 // Auto closes notification after 8 seconds, stops auto close if moused over, then starts 2 second close count after close
 function notification_autoclose(){
 	if($('body').hasClass('notification')){
-		windowTimer = setTimeout(function(){window.close();}, '8000');
+		windowTimer = setTimeout(function(){window.close();}, bp.SETTINGS.toast_duration);
 		window.onmouseout = function(e){
 			windowTimer = setTimeout(function(){window.close();}, '2000');
 		}
@@ -120,9 +121,7 @@ function render_song() {
 function render_options_link() {
     $("#optionsButton").html('<a></a>');
     $("#optionsButton a")
-    .attr({
-        href: "#" 
-    })
+    .attr({ href: "#" })
     .click(function(){
         $("#optionsPanel").toggle(0);
     })
@@ -136,9 +135,7 @@ function render_miniplayer_playlist_link() {
     if(bp.playlists.length>0){
         $("#miniPlaylist").html('<a></a>');
         $("#miniPlaylist a")
-        .attr({
-            href: "#" 
-        })
+        .attr({ href: "#" })
         .click(function(){
             $("#miniplayerPlaylist").css('display', 'block');
         })
@@ -152,9 +149,7 @@ function render_miniplayer_playlist_link() {
 function render_scrobble_link() {
     $("#scrobbling").html('<a></a>');
     $("#scrobbling a")
-    .attr({
-        href: "#" 
-    })
+    .attr({ href: "#" })
     .click(on_toggle_scrobble)
     .text(bp.SETTINGS.scrobble ? chrome.i18n.getMessage('632A191B') : chrome.i18n.getMessage('410827D1'));
 }
@@ -165,14 +160,30 @@ function render_scrobble_link() {
 function render_toast_link() {
     $("#toasting").html('<a></a>');
     $("#toasting a")
-    .attr({
-        href: "#" 
-    })
+    .attr({ href: "#" })
     .click(on_toggle_toast)
     .text(bp.SETTINGS.toast ? chrome.i18n.getMessage('88215243') : chrome.i18n.getMessage('CFD75736'));
     if (miniplayer_open()){
         $("#toasting").html($("#toasting").html() + chrome.i18n.getMessage('DBD92657'));
     }
+}
+
+function render_toast_duration_input() {
+  if (bp.SETTINGS.toast){
+    target = $("#toasting_duration");
+    target.html('<span></span><input type="text" /><a></a>');
+    target.find('span').text("Toast duration (seconds)");
+    target.find('input')
+    .css({width:"30px", margin: "auto 5px", "text-align":"right"})
+    .val(bp.SETTINGS.toast_duration/1000);
+    target.find('a')
+    .attr({href: "#"})
+    .text("Save")
+    .click(on_save_duration);
+  }
+  else{
+    $("#toasting_duration").html('');
+  }
 }
 
 /**
@@ -181,9 +192,7 @@ function render_toast_link() {
 function render_miniplayer_link() {
     $("#miniplayer").html('<a></a>');
     $("#miniplayer a")
-    .attr({
-        href: "#" 
-    })
+    .attr({ href: "#" })
     .click(open_miniplayer)
     .text(chrome.i18n.getMessage('9EFC8A58'));
     if (miniplayer_open()){
@@ -345,6 +354,13 @@ function on_toggle_scrobble() {
 function on_toggle_toast() {
     bp.toggle_toast();
     render_toast_link();
+    render_toast_duration_input();
+}
+
+function on_save_duration() {
+  seconds = $('#toasting_duration').find('input').val();
+  bp.save_toast_duration(seconds);
+  render_toast_duration_input();
 }
 
 /**

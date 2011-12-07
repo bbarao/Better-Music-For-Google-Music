@@ -1,7 +1,7 @@
 {
-   "name": "Better Music Beta for Google Music",
+   "name": "Better Music for Google Music",
    "description": "__MSG_extDesc__",
-   "version": "1.4.2",
+   "version": "1.5.0",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "default_locale": "en",
    "icons": {
@@ -18,7 +18,7 @@
    ],
    "browser_action": {
       "default_icon": "img/main-nogmbtab.png",
-      "default_title": "Better Music Beta",
+      "default_title": "Better Music",
       "default_popup": "popup.html"
    },
    "background_page": "background.html",
