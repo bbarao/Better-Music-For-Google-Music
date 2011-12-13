@@ -35,6 +35,7 @@ function render_popup(){
     render_playing_controls();
     render_google_rating();
     render_toast_duration_input();
+    render_about_links_data();
 }
 
 /* Notification closing */
@@ -149,6 +150,7 @@ function render_miniplayer_playlist_link() {
 function render_scrobble_link() {
     $("#scrobbling").html('<a></a>');
     $("#scrobbling a")
+    .addClass('button margin')
     .attr({ href: "#" })
     .click(on_toggle_scrobble)
     .text(bp.SETTINGS.scrobble ? chrome.i18n.getMessage('632A191B') : chrome.i18n.getMessage('410827D1'));
@@ -160,6 +162,7 @@ function render_scrobble_link() {
 function render_toast_link() {
     $("#toasting").html('<a></a>');
     $("#toasting a")
+    .addClass('button margin')
     .attr({ href: "#" })
     .click(on_toggle_toast)
     .text(bp.SETTINGS.toast ? chrome.i18n.getMessage('88215243') : chrome.i18n.getMessage('CFD75736'));
@@ -177,6 +180,7 @@ function render_toast_duration_input() {
     .css({width:"30px", margin: "auto 5px", "text-align":"right"})
     .val(bp.SETTINGS.toast_duration/1000);
     target.find('a')
+    .addClass('button')
     .attr({href: "#"})
     .text("Save")
     .click(on_save_duration);
@@ -186,12 +190,20 @@ function render_toast_duration_input() {
   }
 }
 
+
+function render_about_links_data(){
+  $('#openAbout').click(function(){$('#aboutPopup').css({display:'block'})});
+  $('#closeAbout').click(function(){$('#aboutPopup').css({display:'none'})});
+  $('#version').html("version " + bp.currentVersion);
+}
+
 /**
  * Renders the link to open miniplayer
  */
 function render_miniplayer_link() {
     $("#miniplayer").html('<a></a>');
     $("#miniplayer a")
+    .addClass('button margin')
     .attr({ href: "#" })
     .click(open_miniplayer)
     .text(chrome.i18n.getMessage('9EFC8A58'));

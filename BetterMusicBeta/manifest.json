@@ -1,7 +1,7 @@
 {
    "name": "Better Music for Google Music",
    "description": "__MSG_extDesc__",
-   "version": "1.5.0",
+   "version": "1.5.1",
    "update_url": "http://clients2.google.com/service/update2/crx",
    "default_locale": "en",
    "icons": {
