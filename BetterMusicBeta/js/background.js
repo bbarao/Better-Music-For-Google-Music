@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.5.2"
+var currentVersion = "1.5.3"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
