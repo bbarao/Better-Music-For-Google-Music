@@ -19,11 +19,12 @@ $(document).ready(function() {
     render_popup();
 	notification_autoclose();
     if(!($('body').hasClass('notification'))){
-       setInterval(function(){auto_update();}, '1000');
+       setInterval(function(){auto_update();}, '250');
     }
 });
 
 function render_popup(){
+    render_time();
     render_scrobble_link();
     render_options_link();
     render_miniplayer_playlist_link();
@@ -69,6 +70,7 @@ function miniplayer_close(){
 /* Auto updating */
 
 function auto_update(){
+    render_time();
     if(currSong != bp.currentSong){
         currSong = bp.currentSong;
         render_popup();
@@ -89,6 +91,7 @@ function render_song() {
     {
         $("#artist").text(bp.player.song.artist);
         $("#track").text(bp.player.song.title);
+
         cover = 'img/defaultcover.png';
         if(bp.player.song.cover.indexOf('default_album_med.png') == -1)
             cover = bp.player.song.cover;
@@ -114,6 +117,40 @@ function render_song() {
         $("#cover ").attr({ src: "img/defaultcover.png" });
         $("#lastfm-buttons").hide();
     }
+}
+
+function render_time() {
+  if(bp.player.has_song){
+    $('#time').removeClass('hide');
+    bp_pos = bp.player.song.position;
+    pos_min = (bp_pos - (bp_pos % 60)) / 60;
+    pos_sec = bp_pos % 60;
+    if(pos_sec < 10){
+      pos_string = pos_min + ":0" + pos_sec;
+    }
+    else{
+      pos_string = pos_min + ":" + pos_sec;
+    }
+
+    bp_time = bp.player.song.time;
+    time_min = (bp_time - (bp_time % 60)) / 60;
+    time_sec = bp_time % 60;
+    if(time_sec < 10){
+      time_string = time_min + ":0" + time_sec;
+    }
+    else{
+      time_string = time_min + ":" + time_sec;
+    }
+
+    song_percent = (bp_pos / bp_time);
+    bar_pixels = song_percent * $('#timeBarHolder').width() + "px"
+
+    $("#timeText").text(pos_string + "/" + time_string);
+    $("#timeBar").css({width: bar_pixels})
+  }
+  else{
+    $('#time').addClass('hide');
+  }
 }
 
 /**

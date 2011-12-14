@@ -188,10 +188,10 @@ var port = chrome.extension.connect({name: "musicbeta"});
 //send information "immediately" - populate plugin information
 setTimeout("SendMessage()", 200);
 
-//Auto Send Message every 10 seconds
+//Auto Send Message every .5 seconds
 window.setInterval(function() {
     SendMessage();
-}, 10000);
+}, 250);
 
 //Forced send on update (new song starts, mode changes, etc.)
 document.getElementById("playerSongInfo").addEventListener("DOMSubtreeModified", function() {

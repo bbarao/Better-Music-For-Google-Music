@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.5.1"
+var currentVersion = "1.5.2"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -34,7 +34,7 @@ SETTINGS.scrobble = !(localStorage["scrobble"] == "false");
 SETTINGS.toast = !(localStorage["toast"] == "false");
 
 //This sets toasts by default to 8 seconds
-SETTINGS.toast_duration = localStorage["toast_duration"] != null ? localStorage["toast_duration"] : localStorage["toast_duration"] = 8000;
+SETTINGS.toast_duration = localStorage["toast_duration"] >= 1000 ? localStorage["toast_duration"] : localStorage["toast_duration"] = 8000;
 
 // Connect event handlers
 chrome.extension.onConnect.addListener(port_on_connect);

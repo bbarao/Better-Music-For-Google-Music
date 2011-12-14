@@ -29,12 +29,22 @@ a:hover {
     color: black;
 }
 
+.hide{
+  display:none;
+}
+
 #main{
     margin:5px;
     padding:5px;
     background:#FFFFFF;
     -webkit-border-radius:3px;
     border:1px solid #CECECE;
+}
+
+.miniplayer #main{
+  margin: 0;
+  -webkit-border-radius: 0;
+  border: none;
 }
 
 #cover-box {
@@ -86,10 +96,44 @@ a:hover {
 	cursor:pointer;
 }
 
+#darkBar{
+  border-top:2px solid #ED8335;
+  margin: 0;
+  padding: 0;
+}  
+
 #playing_controls{
     padding:0 2px;
     background:#4C4C4C;
-    border-top:2px solid #ED8335;
+}
+
+#time{
+  background: #4C4C4C;
+  height: 14px
+}
+
+#timeText{
+  font-family:'Proxima Nova',arial,sans-serif;
+  font-weight: 900;
+  color: #FFFFFF;
+  float: right;
+  margin: 3px 6px 0;
+}
+
+#timeBarHolder{
+  width: 75%;
+  height: 3px;
+  background-color: #656565;
+  border: 1px solid #777;
+  border-radius: 2px;
+  margin: 5px 0 4px 6px;
+  float: left;
+}
+
+#timeBar{
+  height: 100%;
+  width: 0;
+  background-color: #FFFFFF;
 }
 
 #bottom{
@@ -105,6 +149,7 @@ a:hover {
 .miniplayerBottom{
     border:0 !important;
     padding:2px !important;
+    font-size: 10px !important;
     border:2px solid #ED8335 !important;
 }
 
