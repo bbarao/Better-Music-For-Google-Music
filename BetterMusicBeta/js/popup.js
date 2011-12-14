@@ -17,7 +17,7 @@ var currPlaying = bp.is_playing;
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_popup();
-	notification_autoclose();
+    notification_autoclose();
     if(!($('body').hasClass('notification'))){
        setInterval(function(){auto_update();}, '250');
     }
@@ -70,6 +70,7 @@ function miniplayer_close(){
 /* Auto updating */
 
 function auto_update(){
+    render_playing_controls_states();
     render_time();
     if(currSong != bp.currentSong){
         currSong = bp.currentSong;
@@ -318,6 +319,15 @@ function render_auth_link() {
 
 function render_playing_controls(){
     $('#playing_controls').html(chrome.i18n.getMessage('5FEB6CDE'));
+    render_playing_controls_states();
+    $('#playPause').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(playPause);
+    $('#rew').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(prevSong);
+    $('#ff').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(nextSong);
+    $('#repeat_mode_button').click(toggleRepeat);
+    $('#shuffle_mode_button').click(toggleShuffle);
+}
+
+function render_playing_controls_states(){
     $('#repeat_mode_button').attr({class: bp.player.repeat_mode || 'NO_REPEAT'});
     $('#shuffle_mode_button').attr({class: bp.player.shuffle});
     if(bp.player.song){
@@ -328,12 +338,10 @@ function render_playing_controls(){
         else
             $('#playPause').removeClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('3035D7AC')});            
     }
-
-    $('#playPause').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(playPause);
-    $('#rew').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(prevSong);
-    $('#ff').hover(function(){$(this).addClass('goog-flat-button-hover')},function(){$(this).removeClass('goog-flat-button-hover')}).click(nextSong);
-    $('#repeat_mode_button').click(toggleRepeat);
-    $('#shuffle_mode_button').click(toggleShuffle);
+    else{
+        $('#rew').addClass('goog-flat-button-disabled');
+        $('#ff').addClass('goog-flat-button-disabled');
+    }
 }
 
 /**
