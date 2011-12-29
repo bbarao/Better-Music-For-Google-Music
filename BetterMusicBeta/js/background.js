@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.5.3"
+var currentVersion = "1.5.4"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -76,6 +76,7 @@ function port_on_message(message) {
                 // song start
                 if(time_to_scrobble <= 0 && _p.song.position > 0 && _p.song.time > 0) {
                     if(now_playing_sent && !scrobbled) {
+                        scrobbled = true;
                         // Scrobble this song
                         lastfm_api.scrobble(_p.song.title,
                             /* Song start time */
@@ -85,7 +86,6 @@ function port_on_message(message) {
                             function(response) {
                                 if(!response.error) {
                                   // Song was scrobled, waiting for the next song
-                                    scrobbled = true;
                                     now_playing_sent = false;
                                     TrackUse('Scrobble', currentVersion);
                                 }
