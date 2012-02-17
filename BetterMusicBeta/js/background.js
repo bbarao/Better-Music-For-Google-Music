@@ -99,15 +99,17 @@ function port_on_message(message) {
                     }
                 }
                 else {
-                    // Set now playing status
-                    lastfm_api.now_playing(_p.song.title,
-                        _p.song.artist,
-                        _p.song.album,
-                        function(response) {
-                        });
-                    
-                    now_playing_sent = true;
-                    scrobbled = false;
+                    if (!now_playing_sent) { //only once per track
+                        // Set now playing status
+                        lastfm_api.now_playing(_p.song.title,
+                            _p.song.artist,
+                            _p.song.album,
+                            function(response) {
+                            });
+                        
+                        now_playing_sent = true;
+                        scrobbled = false;
+                    }
                 } //end enabled scrobble section
             }
             //do toast if need to toast and enabled
