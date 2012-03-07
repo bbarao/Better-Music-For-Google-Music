@@ -111,7 +111,7 @@ function render_song() {
         $("#track").html('<a></a>');
         $("#track a")
         .attr({ 
-            href: "http://music.google.com/music/listen",
+            href: "http://play.google.com/music/listen",
             target: "_blank"
         })
         .text(chrome.i18n.getMessage('7719C3C8'));
