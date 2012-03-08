@@ -58,7 +58,23 @@
                 <div id="version"></div>
                 <a href="http://github.com/JaredSartin/Better-Music-Beta" target="_blank" class="button github">Github</a>
                 <a href="http://twitter.com/jaredsartin" target="_blank" class="button twitter">Twitter</a>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2F8Z35TX982KN" target="_blank" class="button donate">Donate</a>
+                <hr />
+                <h4>Donate</h4>
+                <form method="POST"
+                      action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/244492528545958"
+                      accept-charset="utf-8"
+                      target="_blank">
+
+                  <input type="hidden" name="item_name_1" value="Donation"/>
+                  <input type="hidden" name="item_description_1" value="Buy Jared Coffee!"/>
+                  <input type="text" name="item_price_1" style="position:relative; top: -20px; width:75px;" />
+                  <input type="image" onclick="$('form').submit(); return false;" name="Google Checkout" alt="Fast checkout through Google" src="img/donate.png" height="40" width="92" />
+                  <input type="hidden" name="item_currency_1" value="USD"/>
+                  <input type="hidden" name="item_quantity_1" value="1"/>
+                  <input type="hidden" name="item_merchant_id_1" value="DONATION"/>
+                  <input type="hidden" name="_charset_" />
+                </form>
+
               </div>
             </div>
           </div>
