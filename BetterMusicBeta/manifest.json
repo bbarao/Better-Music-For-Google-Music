@@ -1,8 +1,8 @@
 {
+   "manifest_version": 2,
    "name": "Better Music for Google Play Music",
    "description": "__MSG_extDesc__",
-   "version": "1.5.8",
-   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "1.5.9",
    "default_locale": "en",
    "icons": {
       "16": "img/logo-16x16.png",
@@ -21,7 +21,7 @@
       "default_title": "Better Music",
       "default_popup": "popup.html"
    },
-   "background_page": "background.html",
+   "background": "background.html",
    "content_scripts": [ 
       {
          "js": ["js/inject.js", "js/contentscript.js"],

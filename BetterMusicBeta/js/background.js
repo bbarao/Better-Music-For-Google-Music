@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.5.8"
+var currentVersion = "1.5.9"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -44,6 +44,7 @@ chrome.extension.onConnect.addListener(port_on_connect);
  */
 function port_on_connect(port) {
     console.assert(port.name == "musicbeta");
+    // console.log(port);
     // Connect another port event handlers
     port.onMessage.addListener(port_on_message);
     port.onDisconnect.addListener(port_on_disconnect);
