@@ -21,7 +21,9 @@
       "default_title": "Better Music",
       "default_popup": "popup.html"
    },
-   "background": "background.html",
+   "background": {
+     "page": "background.html"
+   },
    "content_scripts": [ 
       {
          "js": ["js/inject.js", "js/contentscript.js"],
@@ -32,5 +34,6 @@
          "matches": ["http://play.google.com/music/listen*", "https://play.google.com/music/listen*"],
          "run_at": "document_start"
       }
-   ]
+   ],
+   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

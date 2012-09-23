@@ -23,6 +23,15 @@ var lastfm_api = new LastFM(SETTINGS.api_key, SETTINGS.api_secret);
 
 var currentSong = '';
 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-3860852-2']);
+
+(function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = 'https://ssl.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
 // Load settings from local storage
 lastfm_api.session.key = localStorage["session_key"] || null;
 lastfm_api.session.name = localStorage["session_name"] || null;
@@ -54,6 +63,7 @@ function port_on_connect(port) {
  * New message arrives to the port
  */
 function port_on_message(message) {
+  console.log(message);
     // Current player state
     var _p = message.song;
     playlists = _p.playlists;
