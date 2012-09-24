@@ -6,7 +6,7 @@
  * Licensed under the MIT license
  */
 
-var currentVersion = "1.5.9"
+var currentVersion = "1.5.10"
 
 var SETTINGS = {
     api_key: "ae40619c4838789cf6660391be7b6ada",
@@ -73,13 +73,14 @@ function port_on_message(message) {
         if(!(currentSong == (_p.song.title + _p.song.artist))){
           currentSong = _p.song.title + _p.song.artist;
           need_to_toast = true;
+          now_playing_sent = false;
           TrackUse('Song', currentVersion);
         }
         if(_p.is_playing) {
             chrome.browserAction.setIcon({'path': 'img/main-play.png' });
             //do scrobble if enabled
             if(SETTINGS.scrobble) {
-                // Last.fm recommends to scrobble a song at least at 50%
+                // Last.fm recommends to scrobble a song at least at 70%
                 var time_to_scrobble = _p.song.time * 0.7 - _p.song.position;
                 
                 // Check for valid timings and for that the now playing status was reported at least once
