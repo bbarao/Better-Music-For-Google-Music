@@ -141,7 +141,7 @@ GoogleMusicParser.prototype._get_song_title = function() {
  * @return Song artist
  */
 GoogleMusicParser.prototype._get_song_artist = function() {
-    return $("#playerArtist div").text();
+    return $("#player-artist div").text();
 };
 
 /**
@@ -220,7 +220,8 @@ document.getElementById("thumbsDownPlayer").addEventListener("DOMSubtreeModified
 
 // Function to send the message
 function SendMessage(){
-    port.postMessage({song: new Player(new GoogleMusicParser())});
+    this.player = new Player(new GoogleMusicParser());
+    port.postMessage({song: this.player});
 }
 
 // Initialize the search bar for minimal CSS

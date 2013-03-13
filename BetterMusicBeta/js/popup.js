@@ -329,7 +329,7 @@ function render_playing_controls(){
 
 function render_playing_controls_states(){
     $('#repeat_mode_button').attr({class: bp.player.repeat_mode || 'NO_REPEAT'});
-    $('#shuffle_mode_button').attr({class: bp.player.shuffle});
+    $('#shuffle_mode_button').attr({class: bp.player.shuffle? 'checked' : ''});
     if(bp.player.song){
         $('#rew').removeClass('goog-flat-button-disabled');
         $('#ff').removeClass('goog-flat-button-disabled');
