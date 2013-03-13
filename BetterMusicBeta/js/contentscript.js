@@ -83,12 +83,12 @@ GoogleMusicParser.prototype._get_repeat_mode = function() {
 GoogleMusicParser.prototype._get_playlists = function() {
     var playlists = [];
     var playlist = [];
-    $('#magic-playlists li').each(function(){
-        playlist = [$(this).attr("id"), $(this).find('.nav-item .fade-out-content').attr('title')];
-        playlists.push(playlist);
-    });
+    // $('#auto-playlists li').each(function(){
+    //     playlist = [$(this).attr("id"), $(this).text()];
+    //     playlists.push(playlist);
+    // });
     $('#playlists li').each(function(){
-        playlist = [$(this).attr("id"), $(this).find('.nav-item .fade-out-content').attr('title')];
+        playlist = [$(this).attr("id"), $(this).text()];
         playlists.push(playlist);
     });
     return playlists;

@@ -259,12 +259,14 @@ function render_playlist_links() {
         $("#optionsSection").before('<div id="playlistSection"></div>');
         playlistSectionContent += build_playlist_links();
         $('#playlistSection').html(playlistSectionContent);
+        $('#playlistSection a').click(function(){playlistStart($(this).data('plid'))});
     }
     else if(bp.playlists.length>0 && $("#miniplayerPlaylist").length>0){
         playlistSectionContent = chrome.i18n.getMessage('3544807A');
         playlistSectionContent += build_playlist_links();
         $('#playlistHolder').html(playlistSectionContent);
         $('#closeMiniPlaylist').click(hide_playlists_miniplayer);
+        $('#playlistHolder a').click(function(){playlistStart($(this).data('plid'))});
     }
 }
 
@@ -275,7 +277,7 @@ function build_playlist_links(){
     playlists = bp.playlists;
     playlistLinks = "";
     for (var i=0;i<playlists.length; i++) {
-        playlistLinks += '<a href="javascript:playlistStart(\'' + playlists[i][0] + '\');">' + playlists[i][1] + '</a><br />';
+        playlistLinks += '<a href="#" data-plid="' + playlists[i][0] + '">' + playlists[i][1] + '</a><br />';
     }
     return playlistLinks;
 }
@@ -544,11 +546,12 @@ function thumbsDown(){
 }
 
 function playlistStart(plsID){
+    console.log(plsID);
     sendCommand("fullCommand", "\"playlistSelected\", this, {id: \"" + plsID + "\"}");
-    sendCommand("fullCommand", "\"playlistSelected\", this, {id: \"" + plsID + "\"}");
-    setTimeout(sendCommand("fullCommand", "\"playPlaylist\", null, \"1\""), 200);
-    hide_playlists_miniplayer();
-    setTimeout("render_popup()", 100);
+    setTimeout(sendCommand("fullCommand", "\"playlistSelected\", this, {id: \"" + plsID + "\"}"), 150);
+    setTimeout(sendCommand("fullCommand", "\"playPlaylist\", null, \"1\""), 400);
+    // hide_playlists_miniplayer();
+    // setTimeout("render_popup()", 100);
 }
 
 /* Testing for instance of popup being the miniplayer, returns bool */

@@ -63,7 +63,6 @@ function port_on_connect(port) {
  * New message arrives to the port
  */
 function port_on_message(message) {
-  console.log(message);
     // Current player state
     var _p = message.song;
     playlists = _p.playlists;
