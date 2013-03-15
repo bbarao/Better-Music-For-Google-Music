@@ -539,14 +539,14 @@ function toggleShuffle(){
 
 function thumbsUp(){
     sendCommand("thumbsUp");
-    setTimeout(function(){render_google_rating()}, 100);
     setTimeout(function(){render_google_rating()}, 500);
+    setTimeout(function(){render_google_rating()}, 1000);
 }
 
 function thumbsDown(){
     sendCommand("thumbsDown");
-    setTimeout(function(){render_google_rating()}, 100);
     setTimeout(function(){render_google_rating()}, 500);
+    setTimeout(function(){render_google_rating()}, 1000);
 }
 
 function playlistStart(plsID){
