@@ -331,7 +331,7 @@ function render_playing_controls(){
 
 function render_playing_controls_states(){
     $('#repeat_mode_button').attr({class: bp.player.repeat_mode || 'NO_REPEAT'});
-    $('#shuffle_mode_button').attr({class: bp.player.shuffle? 'checked' : ''});
+    $('#shuffle_mode_button').attr({class: bp.player.shuffle});
     if(bp.player.song){
         $('#rew').removeClass('goog-flat-button-disabled');
         $('#ff').removeClass('goog-flat-button-disabled');
@@ -339,10 +339,14 @@ function render_playing_controls_states(){
             $('#playPause').addClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('A3E7AECB')});
         else
             $('#playPause').removeClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('3035D7AC')});            
+        $('#repeat_mode_button').show();
+        $('#shuffle_mode_button').show();
     }
     else{
         $('#rew').addClass('goog-flat-button-disabled');
         $('#ff').addClass('goog-flat-button-disabled');
+        $('#repeat_mode_button').hide();
+        $('#shuffle_mode_button').hide();
     }
 }
 
@@ -508,41 +512,41 @@ function on_unlove() {
 
 function playPause(){
     sendCommand("playPause");
-    setTimeout("render_playing_controls()", 200);
+    setTimeout(function(){render_playing_controls()}, 200);
 }
 
 function prevSong(){
     sendCommand("prevSong");
-    setTimeout("render_popup()", 200);
+    setTimeout(function(){render_popup()}, 200);
 }
 
 function nextSong(){
     sendCommand("nextSong");
-    setTimeout("render_popup()", 200);
+    setTimeout(function(){render_popup()}, 200);
 }
 
 function toggleRepeat(){
     sendCommand("toggleRepeat");
-    setTimeout("render_playing_controls()", 100);
-    setTimeout("render_playing_controls()", 500);
+    setTimeout(function(){render_playing_controls()}, 100);
+    setTimeout(function(){render_playing_controls()}, 500);
 }
 
 function toggleShuffle(){
     sendCommand("toggleShuffle");
-    setTimeout("render_playing_controls()", 100);
-    setTimeout("render_playing_controls()", 500);
+    setTimeout(function(){render_playing_controls()}, 100);
+    setTimeout(function(){render_playing_controls()}, 500);
 }
 
 function thumbsUp(){
     sendCommand("thumbsUp");
-    setTimeout("render_google_rating()", 200);
-	setTimeout("render_google_rating()", 300);
+    setTimeout(function(){render_google_rating()}, 100);
+    setTimeout(function(){render_google_rating()}, 500);
 }
 
 function thumbsDown(){
     sendCommand("thumbsDown");
-    setTimeout("render_google_rating()", 200);
-	setTimeout("render_google_rating()", 300);
+    setTimeout(function(){render_google_rating()}, 100);
+    setTimeout(function(){render_google_rating()}, 500);
 }
 
 function playlistStart(plsID){

@@ -417,8 +417,8 @@ a.button{
 
 #shuffle_mode_button{width:48px;height:38px;cursor:pointer;outline:none;background:no-repeat url(../img/sprites.png) -731px -206px;float:right}
 #shuffle_mode_button:hover{background:no-repeat url(../img/sprites.png) -213px -193px}
-#shuffle_mode_button.checked{background:no-repeat url(../img/sprites.png) -237px -263px}
-#shuffle_mode_button.checked:hover{background:no-repeat url(../img/sprites.png) -735px -311px}
+#shuffle_mode_button.ALL_SHUFFLE{background:no-repeat url(../img/sprites.png) -237px -263px}
+#shuffle_mode_button.ALL_SHUFFLE:hover{background:no-repeat url(../img/sprites.png) -735px -311px}
 #shuffle_mode_button.on_clicked{background:no-repeat url(../img/sprites.png) -615px -75px}
 #shuffle_mode_button.off_clicked{background:no-repeat url(../img/sprites.png) -41px -307px}
 
