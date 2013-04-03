@@ -77,7 +77,7 @@ function auto_update(){
         render_popup();
     }
     if(currPlaying != bp.is_playing){
-        currSong = bp.is_playing;
+        currPlaying = bp.is_playing;
         render_playing_controls();
     }
 }
