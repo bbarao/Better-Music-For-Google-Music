@@ -11,8 +11,20 @@
 var bp = chrome.extension.getBackgroundPage();
 
 var currSong = bp.currentSong;
-var currPlaying = bp.is_playing;
+var currPlaying = bp.player.is_playing;
+var currRatingMode = bp.player.ratingMode;
 
+/* Return a string representation of the current rating for comparison */
+function getRating() {
+    if (!bp.player.has_song) return null;
+    if (bp.player.ratingMode == "thumbs") {
+        return bp.player.song.thumbsup ? "+" : (bp.player.song.thumbsdown ? "-" : "0");
+    }
+    else if (bp.player.ratingMode == "5stars") {
+        return bp.player.song.stars;
+    }
+}
+var currRating = getRating();
 
 /* Render popup when DOM is ready */
 $(document).ready(function() {
@@ -76,9 +88,15 @@ function auto_update(){
         currSong = bp.currentSong;
         render_popup();
     }
-    if(currPlaying != bp.is_playing){
-        currPlaying = bp.is_playing;
+    if(currPlaying != bp.player.is_playing){
+        currPlaying = bp.player.is_playing;
         render_playing_controls();
+    }
+    var newRating = getRating();
+    if (currRatingMode != bp.player.ratingMode || currRating != newRating){
+        currRatingMode = bp.player.ratingMode;
+        currRating = newRating;
+        render_google_rating();
     }
 }
 
@@ -88,7 +106,7 @@ function auto_update(){
  * Renders current song details
  */
 function render_song() {
-    if(bp.player.song)
+    if(bp.player.has_song)
     {
         $("#artist").text(bp.player.song.artist);
         $("#track").text(bp.player.song.title);
@@ -386,6 +404,9 @@ function render_google_rating(){
             cnt.append(star);
             star.click({rating: i}, rateStars);
         }
+    }
+    else {
+        buttons.empty();
     }
 }
 
