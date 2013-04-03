@@ -392,6 +392,23 @@ a.button{
 .rating-up .thumbs-up-button.goog-flat-button-active{background:no-repeat url(../img/sprites.png) -715px -60px}
 .rating-down .thumbs-down-button.goog-flat-button-active{background:no-repeat url(../img/sprites.png) -695px -20px}
 
+#google-buttons.star-rating{position:relative;width:75px;height:16px;background:repeat-x url(../img/star.png) 0 -16px;}
+.user-rating{position:absolute;background:repeat-x url(../img/star.png) 0 -32px;height:16px;}
+.star-rating .stars-0{width:0!important;}
+.star-rating .stars-1{width:20%!important;}
+.star-rating .stars-2{width:40%!important;}
+.star-rating .stars-3{width:60%!important;}
+.star-rating .stars-4{width:80%!important;}
+.star-rating .stars-5{width:100%!important;}
+.star-rating .rating-container {position:absolute;width:75px;height:16px;}
+.star-selector{position:absolute;height:16px;}
+.star-selector.stars-1{z-index:6;}
+.star-selector.stars-2{z-index:5;}
+.star-selector.stars-3{z-index:4;}
+.star-selector.stars-4{z-index:3;}
+.star-selector.stars-5{z-index:2;}
+.star-selector:hover{background:repeat-x url(../img/star.png) 0 0;}
+
 #playing_controls .goog-flat-button,#right_controls .goog-flat-button{width:48px;height:38px;outline:none;cursor:pointer;float:left}
 #playing_controls .goog-flat-button{margin:0 4px;}
 

@@ -18,6 +18,7 @@ function Player(parser) {
     this.shuffle = parser._get_shuffle();
     this.repeat_mode = parser._get_repeat_mode();
     this.playlists = parser._get_playlists();
+    this.ratingMode = parser._get_ratingMode();
     this.song = {
         position: parser._get_song_position(),
         time: parser._get_song_time(),
@@ -26,7 +27,8 @@ function Player(parser) {
         album: parser._get_song_album(),
         cover: parser._get_song_cover(),
         thumbsup: parser._get_is_thumbs_up(),
-        thumbsdown: parser._get_is_thumbs_down()
+        thumbsdown: parser._get_is_thumbs_down(),
+        stars: parser._get_stars()
     };
 }
 
@@ -180,6 +182,22 @@ GoogleMusicParser.prototype._get_is_thumbs_down = function() {
     return $("#thumbsDownPlayer").attr("aria-pressed");
 };
 
+GoogleMusicParser.prototype._get_stars = function() {
+    var clazz = $("#starRatingPlayer div.user-rating").attr("class");
+    if (clazz) {
+        var idx = clazz.indexOf("stars-");
+        if (idx >= 0) return clazz.substr(idx + 6, 1);
+    }
+    return 0;
+};
+
+var ratingMode;
+if ($("#thumbsUpPlayer").length > 0) ratingMode = "thumbs";
+else if ($("#starRatingPlayer").length > 0) ratingMode = "5stars";
+
+GoogleMusicParser.prototype._get_ratingMode = function() {
+    return ratingMode;
+};
 
 // Non-Parsing functions
 
@@ -210,6 +228,9 @@ document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModif
     setTimeout("SendMessage()", 75);
 });
 
+// Injection for ratings
+injectScript("function triggerMouseEvent(element, eventname){ var event = document.createEvent('MouseEvents'); event.initMouseEvent(eventname, true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, element); element.dispatchEvent(event); }");
+if (ratingMode == "thumbs") {
 document.getElementById("thumbsUpPlayer").addEventListener("DOMSubtreeModified", function() {
     setTimeout("SendMessage()", 75);
 });
@@ -217,6 +238,17 @@ document.getElementById("thumbsUpPlayer").addEventListener("DOMSubtreeModified",
 document.getElementById("thumbsDownPlayer").addEventListener("DOMSubtreeModified", function() {
     setTimeout("SendMessage()", 75);
 });
+  injectScript("function replicateClick(element){ triggerMouseEvent(element, 'mouseover'); triggerMouseEvent(element, 'mousedown'); triggerMouseEvent(element, 'mouseup'); }");
+  injectScript("function thumbsUp(){ replicateClick(document.getElementById('thumbsUpPlayer')); }");
+  injectScript("function thumbsDown(){ replicateClick(document.getElementById('thumbsDownPlayer')); }");
+}
+else if (ratingMode == "5stars") {
+  document.getElementById("starRatingPlayer").addEventListener("DOMSubtreeModified", function() {
+      setTimeout("SendMessage()", 75);
+  });
+  injectScript("function replicateClick(element){ triggerMouseEvent(element, 'click'); }");
+  injectScript("function rateStars(n){ replicateClick(document.getElementById('starRatingPlayer').getElementsByClassName('star-selector stars-'+n)[0]); }");
+}
 
 // Function to send the message
 function SendMessage(){
@@ -228,9 +260,3 @@ function SendMessage(){
 //var obj = document.querySelector("#header .search");
 //obj.parentNode.removeChild(obj);
 //document.body.appendChild(obj);
-
-// Injection for thumbs
-injectScript("function triggerMouseEvent(element, eventname){ var event = document.createEvent('MouseEvents'); event.initMouseEvent(eventname, true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, element); element.dispatchEvent(event); }");
-injectScript("function replicateClick(element){ triggerMouseEvent(element, 'mouseover'); triggerMouseEvent(element, 'mousedown'); triggerMouseEvent(element, 'mouseup'); }");
-injectScript("function thumbsUp(){ replicateClick(document.getElementById('thumbsUpPlayer')); }");
-injectScript("function thumbsDown(){ replicateClick(document.getElementById('thumbsDownPlayer')); }");
