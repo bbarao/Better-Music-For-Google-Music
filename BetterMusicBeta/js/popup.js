@@ -77,7 +77,7 @@ function auto_update(){
         render_popup();
     }
     if(currPlaying != bp.is_playing){
-        currSong = bp.is_playing;
+        currPlaying = bp.is_playing;
         render_playing_controls();
     }
 }
@@ -355,8 +355,10 @@ function render_playing_controls_states(){
  */
 
 function render_google_rating(){
-    if(bp.player.song){
-        $('#google-buttons').html('<div class="rating-container hover-button"><div class="goog-inline-block goog-flat-button thumbs-up-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div><div class="goog-inline-block goog-flat-button thumbs-down-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div></div>');
+    var buttons = $('#google-buttons');
+    if(bp.player.song && bp.player.ratingMode == "thumbs"){
+        buttons.removeClass('star-rating');
+        buttons.html('<div class="rating-container hover-button"><div class="goog-inline-block goog-flat-button thumbs-up-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div><div class="goog-inline-block goog-flat-button thumbs-down-button hover-button" title="" role="button" style="-webkit-user-select: none; " tabindex="0"></div></div>');
         $('.thumbs-up-button').hover(function(){
             $(this).toggleClass('goog-flat-button-hover')
         }).click(thumbsUp);
@@ -364,15 +366,26 @@ function render_google_rating(){
             $(this).toggleClass('goog-flat-button-hover')
         }).click(thumbsDown);
         if(bp.player.song.thumbsup == "true"){
-			$('#google-buttons').addClass('rating-up');
-		}
-		else if(bp.player.song.thumbsdown == "true"){
-			$('#google-buttons').addClass('rating-down');
-		}
-		else{
-			$('#google-buttons').removeClass('rating-up');
-			$('#google-buttons').removeClass('rating-down');
-		}
+            buttons.addClass('rating-up');
+        }
+        else if(bp.player.song.thumbsdown == "true"){
+            buttons.addClass('rating-down');
+        }
+        else{
+            buttons.removeClass('rating-up');
+            buttons.removeClass('rating-down');
+        }
+    }
+    else if (bp.player.song && bp.player.ratingMode == "5stars"){
+        buttons.addClass('star-rating');
+        var stars = bp.player.song.stars;
+        buttons.html('<div class="user-rating stars-' + stars + '"></div><div class="rating-container hover-button"></div>');
+        var cnt = buttons.find('div.rating-container');
+        for (i = 1; i <= 5; i++) {
+            var star = $("<div class='hover-button star-selector stars-" + i + "'></div>");
+            cnt.append(star);
+            star.click({rating: i}, rateStars);
+        }
     }
 }
 
@@ -459,8 +472,8 @@ function open_miniplayer() {
     });
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
-    setTimeout("render_toast_link()",150);
-    setTimeout("render_miniplayer_link()",150);
+    setTimeout(render_toast_link,150);
+    setTimeout(render_miniplayer_link,150);
 }
 
 /**
@@ -545,6 +558,12 @@ function thumbsUp(){
 
 function thumbsDown(){
     sendCommand("thumbsDown");
+    setTimeout(function(){render_google_rating()}, 500);
+    setTimeout(function(){render_google_rating()}, 1000);
+}
+
+function rateStars(event){
+    sendCommand("rateStars(" + event.data.rating + ")");
     setTimeout(function(){render_google_rating()}, 500);
     setTimeout(function(){render_google_rating()}, 1000);
 }

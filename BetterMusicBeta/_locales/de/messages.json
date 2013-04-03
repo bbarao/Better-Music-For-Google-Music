@@ -1,0 +1,69 @@
+{
+   "1F88C31B": {
+      "message": "Einstellungen"
+   },
+   "26F083AF": {
+      "message": "Miniplayer neu \u00F6ffnen"
+   },
+   "3035D7AC": {
+      "message": "Wiedergabe fortsetzen"
+   },
+   "3260F019": {
+      "message": "Abmelden"
+   },
+   "3544807A": {
+      "message": "\u003Ch2\u003EPlaylisten\u003C/h2\u003E"
+   },
+   "35454E57": {
+      "message": "Als Lieblingslied entfernen"
+   },
+   "410827D1": {
+      "message": "Weiter scrobbeln"
+   },
+   "52FF8F1E": {
+      "message": "Last.FM Nutzer: "
+   },
+   "5FEB6CDE": {
+      "message": "\u003Cdiv id=\"repeat_mode_button\" title=\"Wiederholen\"\u003E\u003C/div\u003E\u003Cdiv id=\"shuffle_mode_button\" title=\"Zufallsmix\"\u003E\u003C/div\u003E\u003Cdiv id=\"rew\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"Vorheriger Titel\" role=\"button\" style=\"-webkit-user-select: none; \"\u003E\u003C/div\u003E\u003Cdiv id=\"playPause\" class=\"goog-flat-button goog-inline-block\" title=\"Anh\u00F6ren\" role=\"button\" style=\"-webkit-user-select: none; \"\u003E\u003C/div\u003E\u003Cdiv id=\"ff\" class=\"goog-flat-button goog-flat-button-disabled goog-inline-block\" title=\"N\u00E4chster Titel\" role=\"button\" style=\"-webkit-user-select: none; \"\u003E\u003C/div\u003E"
+   },
+   "632A191B": {
+      "message": "Scrobbeln stoppen"
+   },
+   "7719C3C8": {
+      "message": "Gehe zu Google Music"
+   },
+   "833B9F6F": {
+      "message": "Verbinden mit Last.fm"
+   },
+   "88215243": {
+      "message": "Toasting stoppen"
+   },
+   "9EFC8A58": {
+      "message": "Miniplayer \u00F6ffnen"
+   },
+   "A3E7AECB": {
+      "message": "Pause"
+   },
+   "A8CB4D32": {
+      "message": "Keine Wiedergabe"
+   },
+   "CFD75736": {
+      "message": "Toasting fortsetzen"
+   },
+   "D86C4CF9": {
+      "message": "Diesen Titel lieben"
+   },
+   "DBD92657": {
+      "message": " - Deaktiviert (Miniplayer ge\u00F6ffnet)"
+   },
+   "DCF793CC": {
+      "message": "Playlisten"
+   },
+   "_": {
+      "message": ""
+   },
+   "extDesc": {
+      "description": "",
+      "message": "Eine Chrome-Erweiterung zur Verbesserung von Google Music: Scrobbling, Toast Benachrichtigungen, Wiedergabe-Steuerung und mehr!"
+   }
+}

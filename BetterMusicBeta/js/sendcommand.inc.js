@@ -40,6 +40,9 @@ function sendCommand(command, options) {
       else if (command == "thumbsDown"){
         chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:thumbsDown();void 0');", allFrames: true});
         }
+      else if (command.indexOf("rateStars(") == 0){
+        chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:" + command + ";void 0');", allFrames: true});
+        }
       else {
         chrome.tabs.executeScript(tab_id, {code: "location.assign('javascript:SJBpost(\"" + command + "\");void 0');", allFrames: true});
         if(command == 'nextSong' || command == 'prevSong'){
