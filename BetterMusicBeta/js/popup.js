@@ -472,8 +472,8 @@ function open_miniplayer() {
     });
     var notification = webkitNotifications.createHTMLNotification('miniplayer.html');
     notification.show();
-    setTimeout("render_toast_link()",150);
-    setTimeout("render_miniplayer_link()",150);
+    setTimeout(render_toast_link,150);
+    setTimeout(render_miniplayer_link,150);
 }
 
 /**
