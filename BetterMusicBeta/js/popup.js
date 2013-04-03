@@ -117,6 +117,7 @@ function render_song() {
         $("#cover").attr({ src: cover, width: "60", height: "60" });
         
         if(bp.lastfm_api.session.name && bp.lastfm_api.session.key) {
+            $("#lastfm-buttons").show();
             render_love_button();
         }
         else {
