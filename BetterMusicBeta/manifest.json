@@ -2,7 +2,7 @@
    "manifest_version": 2,
    "name": "Better Music for Google Play Music",
    "description": "__MSG_extDesc__",
-   "version": "1.6.0",
+   "version": "1.6.1",
    "default_locale": "en",
    "icons": {
       "16": "img/logo-16x16.png",
