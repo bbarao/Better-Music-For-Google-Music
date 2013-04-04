@@ -65,5 +65,14 @@
 	},
 	"_": {
 		"message": ""
+	},
+	"about": {
+		"message": "About"
+	},
+	"toastDuration": {
+		"message": "Toast duration (seconds)"
+	},
+	"save": {
+		"message": "Save"
 	}
 }

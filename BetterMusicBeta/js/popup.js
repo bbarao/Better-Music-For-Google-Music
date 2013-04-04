@@ -11,15 +11,27 @@
 var bp = chrome.extension.getBackgroundPage();
 
 var currSong = bp.currentSong;
-var currPlaying = bp.is_playing;
+var currPlaying = bp.player.is_playing;
+var currRatingMode = bp.player.ratingMode;
 
+/* Return a string representation of the current rating for comparison */
+function getRating() {
+    if (!bp.player.has_song) return null;
+    if (bp.player.ratingMode == "thumbs") {
+        return bp.player.song.thumbsup ? "+" : (bp.player.song.thumbsdown ? "-" : "0");
+    }
+    else if (bp.player.ratingMode == "5stars") {
+        return bp.player.song.stars;
+    }
+}
+var currRating = getRating();
 
 /* Render popup when DOM is ready */
 $(document).ready(function() {
     render_popup();
     notification_autoclose();
     if(!($('body').hasClass('notification'))){
-       setInterval(function(){auto_update();}, '250');
+       setInterval(auto_update, 250);
     }
 });
 
@@ -76,9 +88,15 @@ function auto_update(){
         currSong = bp.currentSong;
         render_popup();
     }
-    if(currPlaying != bp.is_playing){
-        currPlaying = bp.is_playing;
+    if(currPlaying != bp.player.is_playing){
+        currPlaying = bp.player.is_playing;
         render_playing_controls();
+    }
+    var newRating = getRating();
+    if (currRatingMode != bp.player.ratingMode || currRating != newRating){
+        currRatingMode = bp.player.ratingMode;
+        currRating = newRating;
+        render_google_rating();
     }
 }
 
@@ -88,7 +106,7 @@ function auto_update(){
  * Renders current song details
  */
 function render_song() {
-    if(bp.player.song)
+    if(bp.player.has_song)
     {
         $("#artist").text(bp.player.song.artist);
         $("#track").text(bp.player.song.title);
@@ -99,6 +117,7 @@ function render_song() {
         $("#cover").attr({ src: cover, width: "60", height: "60" });
         
         if(bp.lastfm_api.session.name && bp.lastfm_api.session.key) {
+            $("#lastfm-buttons").show();
             render_love_button();
         }
         else {
@@ -158,13 +177,15 @@ function render_time() {
  * Renders the link to toggle the options panel
  */
 function render_options_link() {
+    var optionsText = chrome.i18n.getMessage('1F88C31B');
     $("#optionsButton").html('<a></a>');
     $("#optionsButton a")
     .attr({ href: "#" })
     .click(function(){
         $("#optionsPanel").toggle(0);
     })
-    .text(chrome.i18n.getMessage('1F88C31B'));
+    .text(optionsText);
+    $("#optionsSection").find("h2").first().text(optionsText);
 }
 
 /**
@@ -210,28 +231,31 @@ function render_toast_link() {
 }
 
 function render_toast_duration_input() {
+  target = $("#toasting_duration");
   if (bp.SETTINGS.toast){
-    target = $("#toasting_duration");
     target.html('<span></span><input type="text" /><a></a>');
-    target.find('span').text("Toast duration (seconds)");
+    target.find('span').text(chrome.i18n.getMessage('toastDuration'));
     target.find('input')
     .css({width:"30px", margin: "auto 5px", "text-align":"right"})
     .val(bp.SETTINGS.toast_duration/1000);
     target.find('a')
     .addClass('button')
     .attr({href: "#"})
-    .text("Save")
+    .text(chrome.i18n.getMessage('save'))
     .click(on_save_duration);
   }
   else{
-    $("#toasting_duration").html('');
+    target.empty();
   }
 }
 
 
 function render_about_links_data(){
-  $('#openAbout').click(function(){$('#aboutPopup').css({display:'block'})});
-  $('#closeAbout').click(function(){$('#aboutPopup').css({display:'none'})});
+  var aboutText = chrome.i18n.getMessage('about');
+  $('#aboutSection').children('h2').first().text(aboutText);
+  $('#openAbout').children('a').text(aboutText);
+  $('#openAbout').click(function(){$('#aboutPopup').show()});
+  $('#closeAbout').click(function(){$('#aboutPopup').hide()});
   $('#version').html("version " + bp.currentVersion);
 }
 
@@ -386,6 +410,10 @@ function render_google_rating(){
             cnt.append(star);
             star.click({rating: i}, rateStars);
         }
+    }
+    else {
+        buttons.removeClass('star-rating');
+        buttons.empty();
     }
 }
 
