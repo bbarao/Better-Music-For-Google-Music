@@ -31,7 +31,7 @@ $(document).ready(function() {
     render_popup();
     notification_autoclose();
     if(!($('body').hasClass('notification'))){
-       setInterval(function(){auto_update();}, '250');
+       setInterval(auto_update, 250);
     }
 });
 
@@ -177,13 +177,15 @@ function render_time() {
  * Renders the link to toggle the options panel
  */
 function render_options_link() {
+    var optionsText = chrome.i18n.getMessage('1F88C31B');
     $("#optionsButton").html('<a></a>');
     $("#optionsButton a")
     .attr({ href: "#" })
     .click(function(){
         $("#optionsPanel").toggle(0);
     })
-    .text(chrome.i18n.getMessage('1F88C31B'));
+    .text(optionsText);
+    $("#optionsSection").find("h2").first().text(optionsText);
 }
 
 /**
@@ -229,28 +231,31 @@ function render_toast_link() {
 }
 
 function render_toast_duration_input() {
+  target = $("#toasting_duration");
   if (bp.SETTINGS.toast){
-    target = $("#toasting_duration");
     target.html('<span></span><input type="text" /><a></a>');
-    target.find('span').text("Toast duration (seconds)");
+    target.find('span').text(chrome.i18n.getMessage('toastDuration'));
     target.find('input')
     .css({width:"30px", margin: "auto 5px", "text-align":"right"})
     .val(bp.SETTINGS.toast_duration/1000);
     target.find('a')
     .addClass('button')
     .attr({href: "#"})
-    .text("Save")
+    .text(chrome.i18n.getMessage('save'))
     .click(on_save_duration);
   }
   else{
-    $("#toasting_duration").html('');
+    target.empty();
   }
 }
 
 
 function render_about_links_data(){
-  $('#openAbout').click(function(){$('#aboutPopup').css({display:'block'})});
-  $('#closeAbout').click(function(){$('#aboutPopup').css({display:'none'})});
+  var aboutText = chrome.i18n.getMessage('about');
+  $('#aboutSection').children('h2').first().text(aboutText);
+  $('#openAbout').children('a').text(aboutText);
+  $('#openAbout').click(function(){$('#aboutPopup').show()});
+  $('#closeAbout').click(function(){$('#aboutPopup').hide()});
   $('#version').html("version " + bp.currentVersion);
 }
 

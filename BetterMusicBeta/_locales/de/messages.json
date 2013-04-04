@@ -1,6 +1,6 @@
 {
    "1F88C31B": {
-      "message": "Einstellungen"
+      "message": "Optionen"
    },
    "26F083AF": {
       "message": "Miniplayer neu \u00F6ffnen"
@@ -18,7 +18,7 @@
       "message": "Als Lieblingslied entfernen"
    },
    "410827D1": {
-      "message": "Weiter scrobbeln"
+      "message": "Scrobbeln fortsetzen"
    },
    "52FF8F1E": {
       "message": "Last.FM Nutzer: "
@@ -54,10 +54,19 @@
       "message": "Diesen Titel lieben"
    },
    "DBD92657": {
-      "message": " - Deaktiviert (Miniplayer ge\u00F6ffnet)"
+      "message": " - Aus (Miniplayer offen)"
    },
    "DCF793CC": {
       "message": "Playlisten"
+   },
+   "about": {
+      "message": "\u00DCber"
+   },
+   "toastDuration": {
+      "message": "Toast Dauer (Sekunden)"
+   },
+   "save": {
+      "message": "Speichern"
    },
    "_": {
       "message": ""
