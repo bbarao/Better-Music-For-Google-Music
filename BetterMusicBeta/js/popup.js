@@ -412,6 +412,7 @@ function render_google_rating(){
         }
     }
     else {
+        buttons.removeClass('star-rating');
         buttons.empty();
     }
 }
