@@ -19,9 +19,13 @@ function Player(parser) {
     this.repeat_mode = parser._get_repeat_mode();
     this.playlists = parser._get_playlists();
     this.ratingMode = parser._get_ratingMode();
+    var position_string = parser._get_song_position_string();
+    var time_string = parser._get_song_time_string();
     this.song = {
-        position: parser._get_song_position(),
-        time: parser._get_song_time(),
+        position: getSeconds(position_string),
+        position_string: position_string,
+        time: getSeconds(time_string),
+        time_string: time_string,
         title: parser._get_song_title(),
         artist: parser._get_song_artist(),
         album: parser._get_song_album(),
@@ -30,6 +34,21 @@ function Player(parser) {
         thumbsdown: parser._get_is_thumbs_down(),
         stars: parser._get_stars()
     };
+}
+
+/**
+ * Calculates how many seconds a time string represents.
+ */
+function getSeconds(time) {
+    if (time == "") return 0;
+    time = time.split(':');
+    var sec = 0;
+    var factor = 1;
+    for (i = time.length - 1; i >= 0; i--) {
+        sec += parseInt(time[0], 10) * factor;
+        factor *= 60;
+    }
+    return sec;
 }
 
 /**
@@ -95,37 +114,14 @@ GoogleMusicParser.prototype._get_playlists = function() {
     });
     return playlists;
 };
-/**
- * Get current song playing position
- *
- * @return Playing position in seconds
- */
-GoogleMusicParser.prototype._get_song_position = function() {
-    var _time = $("#currentTime").text();
-    _time = $.trim(_time).split(':');
-    if(_time.length == 2) {
-        return (parseInt(_time[0], 10) * 60 + parseInt(_time[1], 10));
-    }
-    else {
-        return 0;
-    }
-};
 
-/**
- * Get current song length
- *
- * @return Song length in seconds
- */
-GoogleMusicParser.prototype._get_song_time = function() {
-    var _time = $("#duration").text();
-    _time = $.trim(_time).split(':');
-    if(_time.length == 2) {
-        return (parseInt(_time[0], 10) * 60 + parseInt(_time[1], 10));
-    }
-    else {
-        return 0;
-    }
-};
+GoogleMusicParser.prototype._get_song_position_string = function() {
+    return $.trim($("#currentTime").text());
+}
+
+GoogleMusicParser.prototype._get_song_time_string = function() {
+    return $.trim($("#duration").text());
+}
 
 /**
  * Get current song title
