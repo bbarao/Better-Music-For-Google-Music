@@ -45,7 +45,7 @@ function getSeconds(time) {
     var sec = 0;
     var factor = 1;
     for (i = time.length - 1; i >= 0; i--) {
-        sec += parseInt(time[0], 10) * factor;
+        sec += parseInt(time[i], 10) * factor;
         factor *= 60;
     }
     return sec;
