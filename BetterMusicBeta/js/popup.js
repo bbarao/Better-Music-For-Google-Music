@@ -110,6 +110,7 @@ function render_song() {
     {
         $("#artist").text(bp.player.song.artist);
         $("#track").text(bp.player.song.title);
+        $("#album").text(bp.player.song.album);
 
         cover = 'img/defaultcover.png';
         if(bp.player.song.cover.indexOf('default_album_med.png') == -1)

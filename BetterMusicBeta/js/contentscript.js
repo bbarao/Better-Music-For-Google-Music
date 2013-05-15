@@ -139,7 +139,7 @@ GoogleMusicParser.prototype._get_song_title = function() {
  * @return Song artist
  */
 GoogleMusicParser.prototype._get_song_artist = function() {
-    return $("#player-artist div").text();
+    return $(".player-artist").text();
 };
 
 /**
@@ -157,7 +157,7 @@ GoogleMusicParser.prototype._get_song_cover = function() {
  * @return Album name or null
  */
 GoogleMusicParser.prototype._get_song_album = function() {
-    return null;
+    return $(".player-album").text();
 };
 
 /**
