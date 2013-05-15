@@ -92,7 +92,7 @@ a:hover {
     position:absolute;
     bottom:0;
     right:0;
-    width:210px;
+    left:1px;
     height:16px;
 }
 
