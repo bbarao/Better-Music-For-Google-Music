@@ -115,6 +115,7 @@ function port_on_message(message) {
                         lastfm_api.now_playing(_p.song.title,
                             _p.song.artist,
                             _p.song.album,
+                            _p.song.time,
                             function(response) {
                             });
                         

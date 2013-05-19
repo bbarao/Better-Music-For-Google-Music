@@ -59,13 +59,14 @@ LastFM.prototype.authorize = function(token, callback) {
  * @param callback Callback function for the request. Sends a parameter with
  *                 reply decoded as JS object from JSON on null on error
  */
-LastFM.prototype.now_playing = function(track, artist, album, callback) {
+LastFM.prototype.now_playing = function(track, artist, album, duration, callback) {
     var params = {
         'api_key': this.API_KEY,
         'method': "track.updateNowPlaying",
         'track': track,
         'artist': artist,
         'album': album || "",
+        'duration': duration,
         'sk': this.session.key
     };
 
