@@ -135,6 +135,7 @@ function render_song() {
             target: "_blank"
         })
         .text(chrome.i18n.getMessage('7719C3C8'));
+        $("#album").empty();
         $("#cover ").attr({ src: "img/defaultcover.png" });
         $("#lastfm-buttons").hide();
     }
