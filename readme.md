@@ -2,8 +2,6 @@
 
 ### Overview
 
-# THIS REPO NEEDS A NEW OWNER - Will delete by 6/21 if not given to new owner
-
 Better Music Beta is a simple Google Chrome extension to notify you of song changes in the Music Beta web application. It operates much like an iTunes growl notification, showing album art, song title and artist.
 
 * * *
