@@ -1,4 +1,4 @@
-# Better Music Beta
+# Better Music For Google Music
 
 ### Overview
 
