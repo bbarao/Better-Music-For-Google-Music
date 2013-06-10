@@ -4,6 +4,9 @@
 
 Better Music Beta is a simple Google Chrome extension to notify you of song changes in the Music Beta web application. It operates much like an iTunes growl notification, showing album art, song title and artist.
 
+Please note that I am not the maintainer of the version on the Google Chrome store.  I am merely someone else who has worked on this and wanted to keep the privacy stealing version off the computer.
+
+
 * * *
 
 ### FAQ
