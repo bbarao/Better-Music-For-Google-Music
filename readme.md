@@ -8,6 +8,14 @@ Better Music Beta is a simple Google Chrome extension to notify you of song chan
 
 ### FAQ
 
+**Will you put this version on the Chrome store?**
+
+No.  Legal reasons.  You need to know how to load an 'unpacked extension'
+
+**Can I put this on the Chrome store?**
+
+That would be a poor decision
+
 **Why doesn't it work after I install?**
 
 You need to refresh the Google Music Beta page in order for the script to start watching for song changes.
