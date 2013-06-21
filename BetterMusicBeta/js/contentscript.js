@@ -12,7 +12,7 @@
  *
  * Google Music Beta page parser
  */
-function Player(parser) { 
+function Player(parser) {
     this.has_song = parser._get_has_song();
     this.is_playing = parser._get_is_playing();
     this.shuffle = parser._get_shuffle();
@@ -40,7 +40,7 @@ function Player(parser) {
  * Calculates how many seconds a time string represents.
  */
 function getSeconds(time) {
-    if (time == "") return 0;
+    if (time === "") return 0;
     time = time.split(':');
     var sec = 0;
     var factor = 1;
@@ -66,7 +66,7 @@ GoogleMusicParser = function() {
  * @return true if some song is loaded, otherwise false
  */
 GoogleMusicParser.prototype._get_has_song = function() {
-    return $("#playerSongInfo div").hasClass("goog-inline-block goog-flat-button");
+    return $("#playerSongInfo div").hasClass("now-playing-menu-wrapper");
 };
 
 /**
@@ -75,7 +75,7 @@ GoogleMusicParser.prototype._get_has_song = function() {
  * @return true if song is playing, false if song is paused
  */
 GoogleMusicParser.prototype._get_is_playing = function() {
-    return ($("#playPause").attr("title") == "Pause");
+    return ($("#player button[data-id='play-pause']").attr('title') == "Pause");
 };
 
 /**
@@ -84,7 +84,7 @@ GoogleMusicParser.prototype._get_is_playing = function() {
  * @return true if shuffle, false if not shuffle
  */
 GoogleMusicParser.prototype._get_shuffle = function() {
-    return $("#shuffle_mode_button").attr("class");
+    return $("#player button[data-id='shuffle']").attr("value");
 };
 
 /**
@@ -93,7 +93,7 @@ GoogleMusicParser.prototype._get_shuffle = function() {
  * @return true if song is playing, false if song is paused
  */
 GoogleMusicParser.prototype._get_repeat_mode = function() {
-    return $("#repeat_mode_button").attr("class");
+    return $("#player button[data-id='repeat']").attr("value");
 };
 
 /**
@@ -116,12 +116,12 @@ GoogleMusicParser.prototype._get_playlists = function() {
 };
 
 GoogleMusicParser.prototype._get_song_position_string = function() {
-    return $.trim($("#currentTime").text());
-}
+    return $.trim($("#time_container_current").text());
+};
 
 GoogleMusicParser.prototype._get_song_time_string = function() {
-    return $.trim($("#duration").text());
-}
+    return $.trim($("#time_container_duration").text());
+};
 
 /**
  * Get current song title
@@ -130,7 +130,7 @@ GoogleMusicParser.prototype._get_song_time_string = function() {
  */
 GoogleMusicParser.prototype._get_song_title = function() {
     // the text inside the div located inside element with id="playerSongTitle"
-    return $("#playerSongTitle div").text();
+    return $("#playerSongTitle").text();
 };
 
 /**
@@ -148,7 +148,7 @@ GoogleMusicParser.prototype._get_song_artist = function() {
  * @return Image URL or default artwork
  */
 GoogleMusicParser.prototype._get_song_cover = function() {
-    return ("http:" + $("#playingAlbumArt").attr("src"));
+    return ("https:" + $("#playingAlbumArt").attr("src"));
 };
 
 /**
@@ -166,7 +166,7 @@ GoogleMusicParser.prototype._get_song_album = function() {
  * @return True if song has thumbs up, false if not
  */
 GoogleMusicParser.prototype._get_is_thumbs_up = function() {
-    return $("#thumbsUpPlayer").attr("aria-pressed");
+    return $("#player-right-wrapper .rating-container [data-rating='5']").hasClass('selected');
 };
 
 /**
@@ -175,23 +175,24 @@ GoogleMusicParser.prototype._get_is_thumbs_up = function() {
  * @return True if song has thumbs down, false if not
  */
 GoogleMusicParser.prototype._get_is_thumbs_down = function() {
-    return $("#thumbsDownPlayer").attr("aria-pressed");
+    return $("#player-right-wrapper .rating-container [data-rating='1']").hasClass('selected');
 };
 
 GoogleMusicParser.prototype._get_stars = function() {
-    var clazz = $("#starRatingPlayer div.user-rating").attr("class");
-    if (clazz) {
-        var idx = clazz.indexOf("stars-");
-        if (idx >= 0) return clazz.substr(idx + 6, 1);
+    var star = $("#player-right-wrapper .rating-container [class='selected']");
+    if (star) {
+        return parseInt(star.attr('data-rating'),10);
     }
     return 0;
 };
 
-var ratingMode;
-if ($("#thumbsUpPlayer").length > 0) ratingMode = "thumbs";
-else if ($("#starRatingPlayer").length > 0) ratingMode = "5stars";
-
 GoogleMusicParser.prototype._get_ratingMode = function() {
+    var ratingMode;
+    if ($("#player-right-wrapper .rating-container").hasClass('thumbs')) {
+        ratingMode = "thumbs";
+    } else if ($("#player-right-wrapper .rating-container").hasClass('stars')) {
+        ratingMode = "5stars";
+    }
     return ratingMode;
 };
 
@@ -212,39 +213,25 @@ document.getElementById("playerSongInfo").addEventListener("DOMSubtreeModified",
     setTimeout("SendMessage()", 75);
 });
 
-document.getElementById("playPause").addEventListener("DOMSubtreeModified", function() {
+$("#player button[data-id='play-pause']").bind("DOMSubtreeModified", function() {
     setTimeout("SendMessage()", 75);
 });
 
-document.getElementById("repeat_mode_button").addEventListener("DOMSubtreeModified", function() {
+$("#player button[data-id='repeat']").bind("DOMSubtreeModified", function() {
     setTimeout("SendMessage()", 75);
 });
 
-document.getElementById("shuffle_mode_button").addEventListener("DOMSubtreeModified", function() {
+$("#player button[data-id='repeat']").bind("DOMSubtreeModified", function() {
     setTimeout("SendMessage()", 75);
 });
 
 // Injection for ratings
 injectScript("function triggerMouseEvent(element, eventname){ var event = document.createEvent('MouseEvents'); event.initMouseEvent(eventname, true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, element); element.dispatchEvent(event); }");
-if (ratingMode == "thumbs") {
-document.getElementById("thumbsUpPlayer").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 75);
+$("#player-right-wrapper .rating-container").bind("DOMSubtreeModified", function() {
+  setTimeout("SendMessage()", 75);
 });
-
-document.getElementById("thumbsDownPlayer").addEventListener("DOMSubtreeModified", function() {
-    setTimeout("SendMessage()", 75);
-});
-  injectScript("function replicateClick(element){ triggerMouseEvent(element, 'mouseover'); triggerMouseEvent(element, 'mousedown'); triggerMouseEvent(element, 'mouseup'); }");
-  injectScript("function thumbsUp(){ replicateClick(document.getElementById('thumbsUpPlayer')); }");
-  injectScript("function thumbsDown(){ replicateClick(document.getElementById('thumbsDownPlayer')); }");
-}
-else if (ratingMode == "5stars") {
-  document.getElementById("starRatingPlayer").addEventListener("DOMSubtreeModified", function() {
-      setTimeout("SendMessage()", 75);
-  });
-  injectScript("function replicateClick(element){ triggerMouseEvent(element, 'click'); }");
-  injectScript("function rateStars(n){ replicateClick(document.getElementById('starRatingPlayer').getElementsByClassName('star-selector stars-'+n)[0]); }");
-}
+injectScript("function replicateClick(element){ triggerMouseEvent(element, 'click'); }");
+injectScript("function rateStars(n){ replicateClick(document.body.querySelector('#player-right-wrapper .rating-container [data-rating=\"'+n+'\"]')); }");
 
 // Function to send the message
 function SendMessage(){

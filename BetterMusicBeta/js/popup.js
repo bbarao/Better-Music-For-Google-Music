@@ -116,7 +116,7 @@ function render_song() {
         if(bp.player.song.cover.indexOf('default_album_med.png') == -1)
             cover = bp.player.song.cover;
         $("#cover").attr({ src: cover, width: "60", height: "60" });
-        
+
         if(bp.lastfm_api.session.name && bp.lastfm_api.session.key) {
             $("#lastfm-buttons").show();
             render_love_button();
@@ -130,7 +130,7 @@ function render_song() {
         $("#artist").text(chrome.i18n.getMessage('A8CB4D32'));
         $("#track").html('<a></a>');
         $("#track a")
-        .attr({ 
+        .attr({
             href: "http://play.google.com/music/listen",
             target: "_blank"
         })
@@ -302,7 +302,7 @@ function render_auth_link() {
             target: "_blank"
         })
         .text(bp.lastfm_api.session.name);
-        
+
         $("#lastfm-profile a:last")
         .attr({
             href: "#",
@@ -315,7 +315,7 @@ function render_auth_link() {
         $("#lastfm-profile").html('<a></a>');
         $("#lastfm-profile a")
         .attr({
-            href: "#" 
+            href: "#"
         })
         .click(on_auth)
         .text(chrome.i18n.getMessage('833B9F6F'));
@@ -345,7 +345,7 @@ function render_playing_controls_states(){
         if(bp.player.is_playing)
             $('#playPause').addClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('A3E7AECB')});
         else
-            $('#playPause').removeClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('3035D7AC')});            
+            $('#playPause').removeClass('goog-flat-button-checked').attr({ title: chrome.i18n.getMessage('3035D7AC')});
         $('#repeat_mode_button').show();
         $('#shuffle_mode_button').show();
     }
@@ -372,10 +372,10 @@ function render_google_rating(){
         $('.thumbs-down-button').hover(function(){
             $(this).toggleClass('goog-flat-button-hover')
         }).click(thumbsDown);
-        if(bp.player.song.thumbsup == "true"){
+        if(bp.player.song.thumbsup === true){
             buttons.addClass('rating-up');
         }
-        else if(bp.player.song.thumbsdown == "true"){
+        else if(bp.player.song.thumbsdown === true){
             buttons.addClass('rating-down');
         }
         else{
@@ -403,19 +403,19 @@ function render_google_rating(){
 /**
  * Renders the love button
  */
-function render_love_button() {    
+function render_love_button() {
     $("#love-button").html('<img src="img/ajax-loader.gif">');
-    
+
     bp.lastfm_api.is_track_loved(bp.player.song.title,
-            bp.player.song.artist, 
+            bp.player.song.artist,
             function(result) {
                 $("#love-button").html('<a href="#"></a>');
-        
+
                 if(result) {
                     $("#love-button a").attr({ title: chrome.i18n.getMessage('35454E57')})
                     .click(on_unlove)
                     .addClass("loved");
-            
+
                 }
                 else {
                     $("#love-button a").attr({ title: chrome.i18n.getMessage('D86C4CF9')})
@@ -491,7 +491,7 @@ function open_miniplayer() {
  * Love button was clicked
  */
 function on_love() {
-    bp.lastfm_api.love_track(bp.player.song.title, bp.player.song.artist, 
+    bp.lastfm_api.love_track(bp.player.song.title, bp.player.song.artist,
         function(result) {
             if(!result.error) {
                 render_love_button();
@@ -512,7 +512,7 @@ function on_love() {
  * Unlove button was clicked
  */
 function on_unlove() {
-    bp.lastfm_api.unlove_track(bp.player.song.title, bp.player.song.artist, 
+    bp.lastfm_api.unlove_track(bp.player.song.title, bp.player.song.artist,
         function(result) {
             if(!result.error) {
                 render_love_button();
@@ -562,13 +562,13 @@ function toggleShuffle(){
 }
 
 function thumbsUp(){
-    sendCommand("thumbsUp");
+    sendCommand("rateStars(" + 5 + ")");
     setTimeout(function(){render_google_rating()}, 500);
     setTimeout(function(){render_google_rating()}, 1000);
 }
 
 function thumbsDown(){
-    sendCommand("thumbsDown");
+    sendCommand("rateStars(" + 1 + ")");
     setTimeout(function(){render_google_rating()}, 500);
     setTimeout(function(){render_google_rating()}, 1000);
 }
